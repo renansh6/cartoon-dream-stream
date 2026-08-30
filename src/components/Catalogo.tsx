@@ -83,8 +83,8 @@ export function Catalogo({
         </p>
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {filtrados.map((d) => (
-            <CardDesenho key={d.id} desenho={d} />
+          {filtrados.map((d, i) => (
+            <CardDesenho key={d.id} desenho={d} prioridade={i < 10} />
           ))}
         </div>
       )}
