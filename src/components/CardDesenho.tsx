@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
 import type { Desenho } from "@/data/desenhos";
 
-export function CardDesenho({ desenho }: { desenho: Desenho }) {
+export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho; prioridade?: boolean }) {
   const [loaded, setLoaded] = useState(false);
   const [src, setSrc] = useState(desenho.coverHd || desenho.cover);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -28,8 +28,15 @@ export function CardDesenho({ desenho }: { desenho: Desenho }) {
         <img
           ref={imgRef}
           src={src}
+          srcSet={
+            src === desenho.cover
+              ? undefined
+              : `${desenho.cover.replace("hqdefault", "mqdefault")} 320w, ${src} 1280w`
+          }
+          sizes="(min-width: 1280px) 18vw, (min-width: 1024px) 23vw, (min-width: 640px) 31vw, 46vw"
           alt={`Capa de ${desenho.title}`}
-          loading="lazy"
+          loading={prioridade ? "eager" : "lazy"}
+          fetchPriority={prioridade ? "high" : "auto"}
           decoding="async"
           onLoad={(e) => {
             const img = e.currentTarget;
