@@ -1,10 +1,21 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
 import type { Desenho } from "@/data/desenhos";
 
 export function CardDesenho({ desenho }: { desenho: Desenho }) {
   const [loaded, setLoaded] = useState(false);
+  const [src, setSrc] = useState(desenho.coverHd || desenho.cover);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      if (img.naturalWidth < 200 && src !== desenho.cover) setSrc(desenho.cover);
+      setLoaded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src]);
 
   return (
     <Link
@@ -15,13 +26,25 @@ export function CardDesenho({ desenho }: { desenho: Desenho }) {
       <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-white/5 shadow-md ring-1 ring-white/10 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-primary/60 group-focus-visible:ring-2 group-focus-visible:ring-primary">
         {!loaded && <div className="absolute inset-0 animate-pulse bg-white/10" />}
         <img
-          src={desenho.cover}
+          ref={imgRef}
+          src={src}
           alt={`Capa de ${desenho.title}`}
           loading="lazy"
           decoding="async"
-          onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
-          className={`h-full w-full scale-105 object-cover transition duration-500 group-hover:scale-110 ${loaded ? "opacity-100" : "opacity-0"}`}
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            // maxresdefault inexistente: YouTube devolve um placeholder 120x90
+            if (img.naturalWidth < 200 && src !== desenho.cover) {
+              setSrc(desenho.cover);
+              return;
+            }
+            setLoaded(true);
+          }}
+          onError={() => {
+            if (src !== desenho.cover) setSrc(desenho.cover);
+            else setLoaded(true);
+          }}
+          className={`h-full w-full object-cover transition duration-500 group-hover:scale-110 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
         <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/90 text-primary-foreground opacity-0 transition group-hover:opacity-100">
