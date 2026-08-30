@@ -13,6 +13,15 @@ import trolls from "@/assets/capas/trolls.jpg.asset.json";
 import lalaloopsy from "@/assets/capas/lalaposy.jpg.asset.json";
 import legoFriends from "@/assets/capas/legofriends.jpg.asset.json";
 import rainbowHigh from "@/assets/capas/raibonw.jpg.asset.json";
+import everAfter from "@/assets/capas/ever.jpg.asset.json";
+import frozen from "@/assets/capas/frozen.jpg.asset.json";
+import bratz from "@/assets/capas/bratz.jpg.asset.json";
+import dora from "@/assets/capas/dora.jpg.asset.json";
+import ladybug from "@/assets/capas/lady.jpg.asset.json";
+import meninasSuper from "@/assets/capas/meninasuper.jpg.asset.json";
+import monsterHigh from "@/assets/capas/monsterhigh.jpg.asset.json";
+import helloKitty from "@/assets/capas/hello.jpg.asset.json";
+import kimPossible from "@/assets/capas/kim.jpg.asset.json";
 
 export type Categoria =
   | "Clássicos"
