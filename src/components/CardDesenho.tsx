@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
 import type { Desenho } from "@/data/desenhos";
@@ -26,6 +26,7 @@ export function CardDesenho({ desenho }: { desenho: Desenho }) {
       <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-white/5 shadow-md ring-1 ring-white/10 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-primary/60 group-focus-visible:ring-2 group-focus-visible:ring-primary">
         {!loaded && <div className="absolute inset-0 animate-pulse bg-white/10" />}
         <img
+          ref={imgRef}
           src={src}
           alt={`Capa de ${desenho.title}`}
           loading="lazy"
