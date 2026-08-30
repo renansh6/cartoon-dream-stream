@@ -26,6 +26,14 @@ import myLittlePony from "@/assets/capas/mylittle.jpg.asset.json";
 import peppa from "@/assets/capas/peppa.jpg.asset.json";
 import polly from "@/assets/capas/polly.jpg.asset.json";
 import moranguinho from "@/assets/capas/moranguinho.jpg.asset.json";
+import pucca from "@/assets/capas/pucca.jpg.asset.json";
+import sailor from "@/assets/capas/sailor.jpg.asset.json";
+import shera from "@/assets/capas/shera.jpg.asset.json";
+import lalaloopsyNova from "@/assets/capas/loolo.jpg.asset.json";
+import winx from "@/assets/capas/winx.jpg.asset.json";
+import witch from "@/assets/capas/witch.jpg.asset.json";
+import tresEspias from "@/assets/capas/tresespias.jpg.asset.json";
+import monicaNova from "@/assets/capas/turmamonica.jpg.asset.json";
 
 export type Categoria =
   | "Clássicos"
@@ -100,7 +108,7 @@ const posters: Record<string, string> = {
   "ursinhos-carinhosos": ursinhos.url,
   "tinker-bell": tinker.url,
   "princesinha-sofia": sofia.url,
-  "turma-da-monica": monica.url,
+  "turma-da-monica": monicaNova.url,
   "bluey": bluey.url,
   "a-casa-magica-da-gabby": gabby.url,
   "spirit-cavalgando-livre": spirit.url,
@@ -108,7 +116,7 @@ const posters: Record<string, string> = {
   "masha-e-o-urso": masha.url,
   "l-o-l-surprise": lol.url,
   "trolls": trolls.url,
-  "lalaloopsy": lalaloopsy.url,
+  "lalaloopsy": lalaloopsyNova.url,
   "lego-friends": legoFriends.url,
   "rainbow-high": rainbowHigh.url,
   "ever-after-high": everAfter.url,
@@ -124,6 +132,12 @@ const posters: Record<string, string> = {
   "peppa-pig": peppa.url,
   "polly-pocket": polly.url,
   "moranguinho": moranguinho.url,
+  "pucca": pucca.url,
+  "sailor-moon": sailor.url,
+  "she-ra": shera.url,
+  "winx-club": winx.url,
+  "w-i-t-c-h": witch.url,
+  "tres-espias-demais": tresEspias.url,
 };
 
 for (const d of desenhos) {
