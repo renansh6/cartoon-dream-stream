@@ -16,13 +16,16 @@ export function CardDesenho({ desenho }: { desenho: Desenho }) {
       <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-white/5 shadow-md ring-1 ring-white/10 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-primary/60 group-focus-visible:ring-2 group-focus-visible:ring-primary">
         {!loaded && <div className="absolute inset-0 animate-pulse bg-white/10" />}
         <img
-          src={desenho.cover}
+          src={src}
           alt={`Capa de ${desenho.title}`}
           loading="lazy"
           decoding="async"
           onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(true)}
-          className={`h-full w-full scale-105 object-cover transition duration-500 group-hover:scale-110 ${loaded ? "opacity-100" : "opacity-0"}`}
+          onError={() => {
+            if (src !== desenho.cover) setSrc(desenho.cover);
+            else setLoaded(true);
+          }}
+          className={`h-full w-full object-cover transition duration-500 group-hover:scale-110 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
         <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/90 text-primary-foreground opacity-0 transition group-hover:opacity-100">
