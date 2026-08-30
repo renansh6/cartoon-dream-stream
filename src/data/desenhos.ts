@@ -2,7 +2,6 @@ import sakura from "@/assets/capas/sakura.jpg.asset.json";
 import ursinhos from "@/assets/capas/ursinhos.jpg.asset.json";
 import tinker from "@/assets/capas/tinker.jpg.asset.json";
 import sofia from "@/assets/capas/princesasopia.jpg.asset.json";
-import monica from "@/assets/capas/monica.jpg.asset.json";
 import bluey from "@/assets/capas/bluey.jpg.asset.json";
 import gabby from "@/assets/capas/casagaby.jpg.asset.json";
 import spirit from "@/assets/capas/spirit.jpg.asset.json";
@@ -10,7 +9,6 @@ import superhero from "@/assets/capas/superhero.jpg.asset.json";
 import masha from "@/assets/capas/mash.jpg.asset.json";
 import lol from "@/assets/capas/lolsurprise.jpg.asset.json";
 import trolls from "@/assets/capas/trolls.jpg.asset.json";
-import lalaloopsy from "@/assets/capas/lalaposy.jpg.asset.json";
 import legoFriends from "@/assets/capas/legofriends.jpg.asset.json";
 import rainbowHigh from "@/assets/capas/raibonw.jpg.asset.json";
 import everAfter from "@/assets/capas/ever.jpg.asset.json";
@@ -26,6 +24,14 @@ import myLittlePony from "@/assets/capas/mylittle.jpg.asset.json";
 import peppa from "@/assets/capas/peppa.jpg.asset.json";
 import polly from "@/assets/capas/polly.jpg.asset.json";
 import moranguinho from "@/assets/capas/moranguinho.jpg.asset.json";
+import pucca from "@/assets/capas/pucca.jpg.asset.json";
+import sailor from "@/assets/capas/sailor.jpg.asset.json";
+import shera from "@/assets/capas/shera.jpg.asset.json";
+import lalaloopsyNova from "@/assets/capas/loolo.jpg.asset.json";
+import winx from "@/assets/capas/winx.jpg.asset.json";
+import witch from "@/assets/capas/witch.jpg.asset.json";
+import tresEspias from "@/assets/capas/tresespias.jpg.asset.json";
+import monicaNova from "@/assets/capas/turmamonica.jpg.asset.json";
 
 export type Categoria =
   | "Clássicos"
@@ -100,7 +106,7 @@ const posters: Record<string, string> = {
   "ursinhos-carinhosos": ursinhos.url,
   "tinker-bell": tinker.url,
   "princesinha-sofia": sofia.url,
-  "turma-da-monica": monica.url,
+  "turma-da-monica": monicaNova.url,
   "bluey": bluey.url,
   "a-casa-magica-da-gabby": gabby.url,
   "spirit-cavalgando-livre": spirit.url,
@@ -108,7 +114,7 @@ const posters: Record<string, string> = {
   "masha-e-o-urso": masha.url,
   "l-o-l-surprise": lol.url,
   "trolls": trolls.url,
-  "lalaloopsy": lalaloopsy.url,
+  "lalaloopsy": lalaloopsyNova.url,
   "lego-friends": legoFriends.url,
   "rainbow-high": rainbowHigh.url,
   "ever-after-high": everAfter.url,
@@ -124,6 +130,12 @@ const posters: Record<string, string> = {
   "peppa-pig": peppa.url,
   "polly-pocket": polly.url,
   "moranguinho": moranguinho.url,
+  "pucca": pucca.url,
+  "sailor-moon": sailor.url,
+  "she-ra": shera.url,
+  "winx-club": winx.url,
+  "w-i-t-c-h": witch.url,
+  "tres-espias-demais": tresEspias.url,
 };
 
 for (const d of desenhos) {
