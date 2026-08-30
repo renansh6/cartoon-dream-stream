@@ -5,6 +5,7 @@ import type { Desenho } from "@/data/desenhos";
 
 export function CardDesenho({ desenho }: { desenho: Desenho }) {
   const [loaded, setLoaded] = useState(false);
+  const [src, setSrc] = useState(desenho.coverHd || desenho.cover);
 
   return (
     <Link
