@@ -1,3 +1,14 @@
+import sakura from "@/assets/capas/sakura.jpg.asset.json";
+import ursinhos from "@/assets/capas/ursinhos.jpg.asset.json";
+import tinker from "@/assets/capas/tinker.jpg.asset.json";
+import sofia from "@/assets/capas/princesasopia.jpg.asset.json";
+import monica from "@/assets/capas/monica.jpg.asset.json";
+import bluey from "@/assets/capas/bluey.jpg.asset.json";
+import gabby from "@/assets/capas/casagaby.jpg.asset.json";
+import spirit from "@/assets/capas/spirit.jpg.asset.json";
+import superhero from "@/assets/capas/superhero.jpg.asset.json";
+import masha from "@/assets/capas/mash.jpg.asset.json";
+
 export type Categoria =
   | "Clássicos"
   | "Magia e Fantasia"
@@ -15,6 +26,8 @@ export interface Desenho {
   cover: string;
   /** Versão em alta resolução (fallback automático para `cover`). */
   coverHd: string;
+  /** Pôster oficial enviado manualmente (exibido inteiro, sem recorte). */
+  poster?: string;
   youtubeUrl: string;
   featured: boolean;
 }
@@ -63,6 +76,24 @@ export const desenhos: Desenho[] = [
   {"id": "33", "slug": "trolls", "title": "Trolls", "category": "Ação e Aventura", "description": "Reveja Trolls em uma seleção de episódios reunida direto do YouTube.", "cover": "https://i.ytimg.com/vi/HiX_GsO8lwA/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/HiX_GsO8lwA/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=HiX_GsO8lwA&list=PLUmLp8QGk1vD0usieHbKKcdwAfeZ-cFJK", "featured": false},
   {"id": "34", "slug": "lalaloopsy", "title": "Lalaloopsy", "category": "Clássicos", "description": "Reveja Lalaloopsy em uma seleção de episódios reunida direto do YouTube.", "cover": "https://i.ytimg.com/vi/rhgKW9jGU_c/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/rhgKW9jGU_c/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=rhgKW9jGU_c&list=PLoEQyYhnyrdSr7PtEDMEYqMVhOjX5te_e", "featured": false},
 ];
+
+const posters: Record<string, string> = {
+  "sakura-card-captors": sakura.url,
+  "ursinhos-carinhosos": ursinhos.url,
+  "tinker-bell": tinker.url,
+  "princesinha-sofia": sofia.url,
+  "turma-da-monica": monica.url,
+  "bluey": bluey.url,
+  "a-casa-magica-da-gabby": gabby.url,
+  "spirit-cavalgando-livre": spirit.url,
+  "dc-super-hero-girls": superhero.url,
+  "masha-e-o-urso": masha.url,
+};
+
+for (const d of desenhos) {
+  const p = posters[d.slug];
+  if (p) d.poster = p;
+}
 
 export const destaques = desenhos.filter((d) => d.featured);
 
