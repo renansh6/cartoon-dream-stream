@@ -107,6 +107,15 @@ const posters: Record<string, string> = {
   "lalaloopsy": lalaloopsy.url,
   "lego-friends": legoFriends.url,
   "rainbow-high": rainbowHigh.url,
+  "ever-after-high": everAfter.url,
+  "frozen-uma-aventura-congelante": frozen.url,
+  "bratz": bratz.url,
+  "dora-a-aventureira": dora.url,
+  "ladybug": ladybug.url,
+  "meninas-superpoderosas": meninasSuper.url,
+  "monster-high": monsterHigh.url,
+  "hello-kitty": helloKitty.url,
+  "kim-possible": kimPossible.url,
 };
 
 for (const d of desenhos) {
