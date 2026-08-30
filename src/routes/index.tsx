@@ -1,23 +1,34 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Destaques } from "@/components/Destaques";
+import { Catalogo } from "@/components/Catalogo";
+import { site } from "@/config/site";
+import type { Categoria } from "@/data/desenhos";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: `${site.name} — Desenhos animados para assistir online` },
+      { name: "description", content: site.description },
+      { property: "og:title", content: `${site.name} — Desenhos para assistir e relembrar` },
+      { property: "og:description", content: site.description },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [query, setQuery] = useState("");
+  const [categoria, setCategoria] = useState<Categoria | "Todos">("Todos");
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+    <div>
+      <Destaques />
+      <Catalogo
+        query={query}
+        onQueryChange={setQuery}
+        categoria={categoria}
+        onCategoriaChange={setCategoria}
       />
     </div>
   );
