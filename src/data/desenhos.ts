@@ -8,6 +8,11 @@ import gabby from "@/assets/capas/casagaby.jpg.asset.json";
 import spirit from "@/assets/capas/spirit.jpg.asset.json";
 import superhero from "@/assets/capas/superhero.jpg.asset.json";
 import masha from "@/assets/capas/mash.jpg.asset.json";
+import lol from "@/assets/capas/lolsurprise.jpg.asset.json";
+import trolls from "@/assets/capas/trolls.jpg.asset.json";
+import lalaloopsy from "@/assets/capas/lalaposy.jpg.asset.json";
+import legoFriends from "@/assets/capas/legofriends.jpg.asset.json";
+import rainbowHigh from "@/assets/capas/raibonw.jpg.asset.json";
 
 export type Categoria =
   | "Clássicos"
@@ -88,6 +93,11 @@ const posters: Record<string, string> = {
   "spirit-cavalgando-livre": spirit.url,
   "dc-super-hero-girls": superhero.url,
   "masha-e-o-urso": masha.url,
+  "l-o-l-surprise": lol.url,
+  "trolls": trolls.url,
+  "lalaloopsy": lalaloopsy.url,
+  "lego-friends": legoFriends.url,
+  "rainbow-high": rainbowHigh.url,
 };
 
 for (const d of desenhos) {
