@@ -22,6 +22,10 @@ import meninasSuper from "@/assets/capas/meninasuper.jpg.asset.json";
 import monsterHigh from "@/assets/capas/monsterhigh.jpg.asset.json";
 import helloKitty from "@/assets/capas/hello.jpg.asset.json";
 import kimPossible from "@/assets/capas/kim.jpg.asset.json";
+import myLittlePony from "@/assets/capas/mylittle.jpg.asset.json";
+import peppa from "@/assets/capas/peppa.jpg.asset.json";
+import polly from "@/assets/capas/polly.jpg.asset.json";
+import moranguinho from "@/assets/capas/moranguinho.jpg.asset.json";
 
 export type Categoria =
   | "Clássicos"
@@ -116,6 +120,10 @@ const posters: Record<string, string> = {
   "monster-high": monsterHigh.url,
   "hello-kitty": helloKitty.url,
   "kim-possible": kimPossible.url,
+  "my-little-pony": myLittlePony.url,
+  "peppa-pig": peppa.url,
+  "polly-pocket": polly.url,
+  "moranguinho": moranguinho.url,
 };
 
 for (const d of desenhos) {
