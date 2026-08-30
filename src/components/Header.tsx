@@ -10,7 +10,7 @@ export function Header() {
 
   const buscar = (valor: string) => {
     setQ(valor);
-    navigate({ to: "/desenhos", search: valor ? { q: valor } : {}, replace: true });
+    navigate({ to: "/desenhos", search: { q: valor || undefined }, replace: true });
   };
 
   return (

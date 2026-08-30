@@ -12,7 +12,8 @@ export function Destaques() {
     return () => window.clearInterval(id);
   }, [total]);
 
-  const atual = destaques[index];
+  const atual = destaques[index] ?? destaques[0];
+  if (!atual) return null;
 
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-6 sm:px-6">

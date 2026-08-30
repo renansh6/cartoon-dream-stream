@@ -33,8 +33,8 @@ export function parseYoutubeUrl(url: string): ParsedYoutube {
   } catch {
     const v = url.match(/[?&]v=([^&]+)/);
     const l = url.match(/[?&]list=([^&]+)/);
-    videoId = v ? v[1] : null;
-    playlistId = l ? l[1] : null;
+    videoId = v?.[1] ?? null;
+    playlistId = l?.[1] ?? null;
   }
 
   return { videoId, playlistId, startSeconds };

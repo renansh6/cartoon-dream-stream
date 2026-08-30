@@ -5,9 +5,10 @@ import { site } from "@/config/site";
 import type { Categoria } from "@/data/desenhos";
 
 export const Route = createFileRoute("/desenhos")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { q?: string } => {
+    const q = search["q"];
+    return typeof q === "string" && q ? { q } : {};
+  },
   head: () => ({
     meta: [
       { title: `Todos os desenhos — ${site.name}` },
@@ -36,7 +37,7 @@ function TodosOsDesenhos() {
       <Catalogo
         query={q ?? ""}
         onQueryChange={(valor) =>
-          navigate({ to: "/desenhos", search: valor ? { q: valor } : {}, replace: true })
+          navigate({ to: "/desenhos", search: { q: valor || undefined }, replace: true })
         }
         categoria={categoria}
         onCategoriaChange={setCategoria}
