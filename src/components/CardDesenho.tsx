@@ -6,6 +6,16 @@ import type { Desenho } from "@/data/desenhos";
 export function CardDesenho({ desenho }: { desenho: Desenho }) {
   const [loaded, setLoaded] = useState(false);
   const [src, setSrc] = useState(desenho.coverHd || desenho.cover);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      if (img.naturalWidth < 200 && src !== desenho.cover) setSrc(desenho.cover);
+      setLoaded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src]);
 
   return (
     <Link
