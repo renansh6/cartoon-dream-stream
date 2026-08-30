@@ -20,7 +20,15 @@ export function CardDesenho({ desenho }: { desenho: Desenho }) {
           alt={`Capa de ${desenho.title}`}
           loading="lazy"
           decoding="async"
-          onLoad={() => setLoaded(true)}
+          onLoad={(e) => {
+            const img = e.currentTarget;
+            // maxresdefault inexistente: YouTube devolve um placeholder 120x90
+            if (img.naturalWidth < 200 && src !== desenho.cover) {
+              setSrc(desenho.cover);
+              return;
+            }
+            setLoaded(true);
+          }}
           onError={() => {
             if (src !== desenho.cover) setSrc(desenho.cover);
             else setLoaded(true);
