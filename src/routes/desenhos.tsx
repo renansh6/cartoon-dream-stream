@@ -28,7 +28,8 @@ export const Route = createFileRoute("/desenhos")({
 });
 
 function TodosOsDesenhos() {
-  const { q } = Route.useSearch();
+  const search = Route.useSearch();
+  const q = search.q;
   const navigate = useNavigate();
   const [categoria, setCategoria] = useState<Categoria | "Todos">("Todos");
 
@@ -37,7 +38,7 @@ function TodosOsDesenhos() {
       <Catalogo
         query={q ?? ""}
         onQueryChange={(valor) =>
-          navigate({ to: "/desenhos", search: { q: valor || undefined }, replace: true })
+          navigate({ to: "/desenhos", search: (valor ? { q: valor } : {}) as { q?: string }, replace: true })
         }
         categoria={categoria}
         onCategoriaChange={setCategoria}
