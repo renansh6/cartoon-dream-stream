@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
-import { ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, Play } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
 import { CardDesenho } from "@/components/CardDesenho";
 import { desenhos, getDesenhoBySlug } from "@/data/desenhos";
@@ -140,14 +140,6 @@ function DetalheDesenho() {
                     Continuar do episódio {retomar + 1}
                   </button>
                 )}
-                <a
-                  href={desenho.youtubeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/15 px-5 text-sm text-muted-foreground transition hover:text-foreground"
-                >
-                  Abrir no YouTube <ExternalLink className="h-4 w-4" />
-                </a>
               </div>
             </div>
           </div>
