@@ -20,9 +20,8 @@ export function Footer() {
           </Link>
         </nav>
         <p className="text-xs leading-relaxed text-muted-foreground">
-          Todos os vídeos são reproduzidos diretamente do YouTube por meio do player oficial. Os
-          direitos pertencem aos respectivos canais e detentores. Este site não hospeda nem
-          armazena vídeos.
+          Os vídeos são exibidos por meio de players oficiais incorporados. Os direitos pertencem
+          aos respectivos canais e detentores. Este site não hospeda nem armazena vídeos.
         </p>
       </div>
       <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-muted-foreground">

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Play, AlertTriangle, ExternalLink } from "lucide-react";
+import { Play, AlertTriangle } from "lucide-react";
 import { loadYoutubeApi, parseYoutubeUrl } from "@/lib/youtube";
 
 export interface PlayerHandle {
@@ -71,6 +71,7 @@ export function PlayerYoutube({
             rel: 0,
             modestbranding: 1,
             playsinline: 1,
+            iv_load_policy: 3,
             origin: window.location.origin,
           },
           events: {
@@ -205,17 +206,8 @@ export function PlayerYoutube({
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/95 px-6 text-center">
           <AlertTriangle className="h-8 w-8 text-primary" />
           <p className="text-sm text-muted-foreground">
-            Este vídeo não pôde ser reproduzido por aqui. Ele pode estar indisponível ou com
-            incorporação bloqueada pelo canal.
+            Este vídeo não pôde ser reproduzido no momento. Tente novamente mais tarde.
           </p>
-          <a
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground"
-          >
-            Abrir no YouTube <ExternalLink className="h-4 w-4" />
-          </a>
         </div>
       )}
     </div>
