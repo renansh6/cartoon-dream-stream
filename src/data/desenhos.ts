@@ -156,6 +156,16 @@ const posters: Record<string, string> = {
   "winx-club": winx.url,
   "w-i-t-c-h": witch.url,
   "tres-espias-demais": tresEspias.url,
+  "minnie-toons": minnie.url,
+  "galinha-pintadinha-mini": galinha.url,
+  "lolirock": lolirock.url,
+  "lilo-e-stitch": lilo.url,
+  "os-padrinhos-magicos": padrinhos.url,
+  "branca-de-neve-e-os-sete-anoes": brancaNeve.url,
+  "a-bela-adormecida": belaAdormecida.url,
+  "a-pequena-sereia-2": pequenaSereia.url,
+  "cinderela": cinderela.url,
+  "as-enroladas-aventuras-da-rapunzel": rapunzel.url,
 };
 
 for (const d of desenhos) {
