@@ -32,6 +32,16 @@ import winx from "@/assets/capas/winx.webp.asset.json";
 import witch from "@/assets/capas/witch.webp.asset.json";
 import tresEspias from "@/assets/capas/tresespias.webp.asset.json";
 import monicaNova from "@/assets/capas/turmamonica.webp.asset.json";
+import minnie from "@/assets/capas/minnie_tons.webp.asset.json";
+import galinha from "@/assets/capas/galinhapintaginha.webp.asset.json";
+import lolirock from "@/assets/capas/lolirock.webp.asset.json";
+import lilo from "@/assets/capas/lillo.webp.asset.json";
+import padrinhos from "@/assets/capas/padrinhos.webp.asset.json";
+import brancaNeve from "@/assets/capas/brancadeneve.webp.asset.json";
+import belaAdormecida from "@/assets/capas/belaador.webp.asset.json";
+import pequenaSereia from "@/assets/capas/pequenasereia.webp.asset.json";
+import cinderela from "@/assets/capas/cinderela.webp.asset.json";
+import rapunzel from "@/assets/capas/rapunzel.webp.asset.json";
 
 export type Categoria =
   | "Clássicos"
