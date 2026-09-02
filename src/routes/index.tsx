@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Destaques } from "@/components/Destaques";
-import { Catalogo } from "@/components/Catalogo";
+import { Catalogo, type Filtro } from "@/components/Catalogo";
 import { site } from "@/config/site";
-import type { Categoria } from "@/data/desenhos";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,7 +18,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [query, setQuery] = useState("");
-  const [categoria, setCategoria] = useState<Categoria | "Todos">("Todos");
+  const [categoria, setCategoria] = useState<Filtro>("Todos");
 
   return (
     <div>

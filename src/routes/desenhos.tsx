@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Catalogo } from "@/components/Catalogo";
+import { Catalogo, type Filtro } from "@/components/Catalogo";
 import { site } from "@/config/site";
-import type { Categoria } from "@/data/desenhos";
 
 export const Route = createFileRoute("/desenhos")({
   validateSearch: (search: Record<string, unknown>): { q?: string } => {
@@ -31,7 +30,7 @@ function TodosOsDesenhos() {
   const search = Route.useSearch();
   const q = search.q;
   const navigate = useNavigate();
-  const [categoria, setCategoria] = useState<Categoria | "Todos">("Todos");
+  const [categoria, setCategoria] = useState<Filtro>("Todos");
 
   return (
     <div className="pt-4">

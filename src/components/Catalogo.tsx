@@ -4,11 +4,17 @@ import { CardDesenho } from "@/components/CardDesenho";
 import { categorias, desenhos, type Categoria } from "@/data/desenhos";
 import { normalizar } from "@/lib/texto";
 
+/** Filtro selecionável: categorias + "Todos" + a coleção "Barbie". */
+export type Filtro = Categoria | "Todos" | "Barbie";
+
+/** Filtros exibidos como chips (as categorias visíveis + a coleção Barbie). */
+const filtros: Filtro[] = ["Todos", ...categorias, "Barbie"];
+
 interface Props {
   query: string;
   onQueryChange: (v: string) => void;
-  categoria: Categoria | "Todos";
-  onCategoriaChange: (c: Categoria | "Todos") => void;
+  categoria: Filtro;
+  onCategoriaChange: (c: Filtro) => void;
   titulo?: string;
 }
 
@@ -22,12 +28,15 @@ export function Catalogo({
   const filtrados = useMemo(() => {
     const termo = normalizar(query);
     return desenhos.filter((d) => {
-      const okCategoria = categoria === "Todos" || d.category === categoria;
+      const okCategoria =
+        categoria === "Todos" ||
+        (categoria === "Barbie" ? d.collection === "Barbie" : d.category === categoria);
       const okTermo =
         !termo ||
         normalizar(d.title).includes(termo) ||
         normalizar(d.category).includes(termo) ||
-        normalizar(d.description).includes(termo);
+        normalizar(d.description).includes(termo) ||
+        normalizar(d.collection ?? "").includes(termo);
       return okCategoria && okTermo;
     });
   }, [query, categoria]);
@@ -57,7 +66,7 @@ export function Catalogo({
       </div>
 
       <div className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
-        {(["Todos", ...categorias] as const).map((c) => {
+        {filtros.map((c) => {
           const ativo = c === categoria;
           return (
             <button
