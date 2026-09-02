@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
@@ -7,6 +7,20 @@ import { desenhos, getDesenhoBySlug } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
 import { getUltimoEpisodio, setUltimoEpisodio } from "@/lib/progresso";
 import { site } from "@/config/site";
+import capaFallback from "@/assets/capa-fallback.svg";
+
+/** onError encadeado: cai para `cover` e por fim para a capa reserva. */
+function comReserva(e: SyntheticEvent<HTMLImageElement>, cover?: string) {
+  const img = e.currentTarget;
+  const passo = img.dataset["fb"] ?? "0";
+  if (passo === "0" && cover && !img.src.endsWith(cover)) {
+    img.dataset["fb"] = "1";
+    img.src = cover;
+  } else if (passo !== "2") {
+    img.dataset["fb"] = "2";
+    img.src = capaFallback;
+  }
+}
 
 export const Route = createFileRoute("/desenho/$slug")({
   loader: ({ params }) => {
@@ -93,9 +107,7 @@ function DetalheDesenho() {
           src={desenho.coverHd}
           alt=""
           aria-hidden
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = desenho.cover;
-          }}
+          onError={(e) => comReserva(e, desenho.cover)}
           className="absolute inset-0 h-72 w-full object-cover opacity-40"
         />
         <div className="absolute inset-0 h-72 bg-gradient-to-b from-background/60 to-background" />
@@ -112,6 +124,7 @@ function DetalheDesenho() {
               src={desenho.cover}
               alt={`Capa de ${desenho.title}`}
               loading="lazy"
+              onError={(e) => comReserva(e)}
               className="hidden h-44 w-32 rounded-md object-cover ring-1 ring-border sm:block"
             />
             <div>
@@ -214,6 +227,7 @@ function DetalheDesenho() {
                       alt=""
                       aria-hidden
                       loading="lazy"
+                      onError={(e) => comReserva(e)}
                       className="h-12 w-20 shrink-0 rounded-lg object-cover"
                     />
                     <span className="text-sm text-foreground">

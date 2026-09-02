@@ -19,10 +19,6 @@ export function Footer() {
             Todos os desenhos
           </Link>
         </nav>
-        <p className="text-xs leading-relaxed text-muted-foreground">
-          Os vídeos são exibidos por meio de players oficiais incorporados. Os direitos pertencem
-          aos respectivos canais e detentores. Este site não hospeda nem armazena vídeos.
-        </p>
       </div>
       <div className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground">
         © {ano} {site.name}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
 import type { Desenho } from "@/data/desenhos";
+import capaFallback from "@/assets/capa-fallback.svg";
 
 export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho; prioridade?: boolean }) {
   const [loaded, setLoaded] = useState(false);
@@ -42,7 +43,8 @@ export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho;
           decoding="async"
           onLoad={() => setLoaded(true)}
           onError={() => {
-            if (src !== desenho.cover) setSrc(desenho.cover);
+            if (src !== desenho.cover && src !== capaFallback) setSrc(desenho.cover);
+            else if (src !== capaFallback) setSrc(capaFallback);
             else setLoaded(true);
           }}
           className={`relative h-full w-full ${poster ? "object-contain" : "object-cover"} transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}

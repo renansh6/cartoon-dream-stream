@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { destaques } from "@/data/desenhos";
+import capaFallback from "@/assets/capa-fallback.svg";
 
 export function Destaques() {
   const [index, setIndex] = useState(0);
@@ -27,7 +28,15 @@ export function Destaques() {
               aria-hidden={i !== index}
               loading={i === 0 ? "eager" : "lazy"}
               onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = d.cover;
+                const img = e.currentTarget as HTMLImageElement;
+                const passo = img.dataset["fb"] ?? "0";
+                if (passo === "0") {
+                  img.dataset["fb"] = "1";
+                  img.src = d.cover;
+                } else if (passo === "1") {
+                  img.dataset["fb"] = "2";
+                  img.src = capaFallback;
+                }
               }}
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
                 i === index ? "opacity-100" : "opacity-0"

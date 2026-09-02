@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Menu, Search, Sparkles, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { site } from "@/config/site";
+import logoUrl from "@/assets/perfilcerto.jpg";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -17,9 +18,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-header/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
         <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Sparkles className="h-4 w-4" />
-          </span>
+          <img
+            src={logoUrl}
+            alt={site.name}
+            width={40}
+            height={40}
+            decoding="async"
+            className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
+          />
           <span className="text-base font-semibold tracking-tight text-foreground sm:text-lg">
             {site.name}
           </span>
