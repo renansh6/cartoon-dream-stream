@@ -1,3 +1,4 @@
+import juniperLeePoster from "@/assets/juniper-lee.jpg";
 import jasmine from "@/assets/capas/jasminealadim.webp.asset.json";
 import princesaSapo from "@/assets/capas/princesasapo.webp.asset.json";
 import alice from "@/assets/capas/alicepais.webp.asset.json";
@@ -197,6 +198,11 @@ for (const d of desenhos) {
   const p = posters[d.slug];
   if (p) d.poster = resolveAssetUrl(p);
 }
+
+// Pôster empacotado localmente (import do Vite já resolve para uma URL válida,
+// então não passa por resolveAssetUrl).
+const juniperLee = desenhos.find((d) => d.slug === "a-vida-e-aventuras-de-juniper-lee");
+if (juniperLee) juniperLee.poster = juniperLeePoster;
 
 export const destaques = desenhos.filter((d) => d.featured);
 
