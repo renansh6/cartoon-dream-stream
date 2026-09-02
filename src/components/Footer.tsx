@@ -5,7 +5,7 @@ export function Footer() {
   const ano = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-t border-white/10 bg-background/60">
+    <footer className="mt-16 border-t border-border bg-header">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:grid-cols-3">
         <div>
           <p className="text-lg font-semibold text-foreground">{site.name}</p>
@@ -24,7 +24,7 @@ export function Footer() {
           aos respectivos canais e detentores. Este site não hospeda nem armazena vídeos.
         </p>
       </div>
-      <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-muted-foreground">
+      <div className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground">
         © {ano} {site.name}
       </div>
     </footer>

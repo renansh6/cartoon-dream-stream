@@ -17,7 +17,7 @@ export function Destaques() {
 
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-6 sm:px-6">
-      <div className="relative overflow-hidden rounded-3xl ring-1 ring-white/10">
+      <div className="relative overflow-hidden rounded-xl ring-1 ring-border">
         <div className="relative h-[440px] sm:h-[420px] md:h-[480px]">
           {destaques.map((d, i) => (
             <img
@@ -38,7 +38,7 @@ export function Destaques() {
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-transparent" />
 
           <div className="relative flex h-full flex-col justify-end gap-3 p-6 sm:p-10 md:max-w-xl">
-            <span className="w-fit rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+            <span className="w-fit rounded-md bg-white/10 px-3 py-1 text-xs font-medium text-foreground">
               {atual.category}
             </span>
             <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
@@ -50,7 +50,7 @@ export function Destaques() {
                 to="/desenho/$slug"
                 params={{ slug: atual.slug }}
                 hash="player"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 text-sm font-semibold text-primary-foreground shadow-lg transition hover:opacity-90"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
               >
                 <Play className="h-4 w-4" fill="currentColor" /> Assistir agora
               </Link>

@@ -19,9 +19,9 @@ export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho;
     <Link
       to="/desenho/$slug"
       params={{ slug: desenho.slug }}
-      className="group block focus:outline-none"
+      className="group relative block focus:outline-none hover:z-10"
     >
-      <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-white/5 shadow-md ring-1 ring-white/10 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-primary/60 group-focus-visible:ring-2 group-focus-visible:ring-primary">
+      <div className="relative aspect-[2/3] overflow-hidden rounded-md bg-elevated shadow-lg shadow-black/50 transition-transform duration-200 ease-out group-hover:scale-[1.03] group-focus-visible:ring-2 group-focus-visible:ring-primary sm:group-hover:scale-105">
         {!loaded && <div className="absolute inset-0 animate-pulse bg-white/10" />}
         {poster && (
           <img
@@ -47,13 +47,13 @@ export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho;
           }}
           className={`relative h-full w-full ${poster ? "object-contain" : "object-cover"} transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/90 text-primary-foreground opacity-0 transition group-hover:opacity-100">
           <Play className="h-4 w-4 translate-x-[1px]" fill="currentColor" />
         </span>
         <div className="absolute inset-x-0 bottom-0 p-3">
           <h3 className="line-clamp-2 text-sm font-semibold text-foreground">{desenho.title}</h3>
-          <p className="mt-1 text-xs text-primary">{desenho.category}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{desenho.category}</p>
         </div>
       </div>
     </Link>

@@ -5,17 +5,19 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
+ * Design system definition — identidade "dark premium" inspirada em
+ * plataformas de streaming (estilo Netflix).
  *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
+ * O bloco @theme inline mapeia as CSS custom properties para utilitários
+ * Tailwind (ex.: --color-primary -> bg-primary, text-primary).
  *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
+ * Os blocos :root / .dark definem os valores reais. Toda a paleta está
+ * centralizada aqui: para reajustar o visual do site basta trocar estes
+ * valores.
  *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Para adicionar uma nova cor semântica:
+ * 1. Adicione a variável em :root (e em .dark, com o mesmo valor)
+ * 2. Registre em @theme inline como --color-<nome>: var(--<nome>)
  */
 
 @theme inline {
@@ -46,6 +48,16 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
+
+  /* Cores específicas da identidade streaming */
+  --color-header: var(--header);
+  --color-elevated: var(--elevated);
+  --color-field: var(--field);
+  --color-red-hover: var(--red-hover);
+  --color-btn-secondary: var(--btn-secondary);
+  --color-btn-secondary-hover: var(--btn-secondary-hover);
+  --color-overlay: var(--overlay);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -61,78 +73,116 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/*
+ * Paleta principal (identidade streaming / dark premium)
+ *
+ *   Fundo geral ............... #141414
+ *   Fundo do cabeçalho ........ #0B0B0B
+ *   Áreas elevadas / modais ... #181818
+ *   Campos e secundários ...... #2B2B2B
+ *   Destaque principal ........ #E50914
+ *   Vermelho no hover ......... #B20710
+ *   Texto principal ........... #FFFFFF
+ *   Texto secundário .......... #B3B3B3
+ *   Bordas discretas .......... rgba(255,255,255,0.12)
+ *   Overlay sobre imagens ..... rgba(0,0,0,0.65)
+ */
 :root {
-  --radius: 1rem;
+  --radius: 0.5rem;
   --font-sans:
     "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --background: oklch(0.16 0.055 295);
-  --foreground: oklch(0.98 0.005 300);
-  --card: oklch(0.22 0.06 295);
-  --card-foreground: oklch(0.98 0.005 300);
-  --popover: oklch(0.22 0.06 295);
-  --popover-foreground: oklch(0.98 0.005 300);
-  --primary: oklch(0.72 0.19 350);
-  --primary-foreground: oklch(0.16 0.05 295);
-  --secondary: oklch(0.28 0.07 295);
-  --secondary-foreground: oklch(0.98 0.005 300);
-  --muted: oklch(0.28 0.06 295);
-  --muted-foreground: oklch(0.78 0.03 300);
-  --accent: oklch(0.7 0.17 300);
-  --accent-foreground: oklch(0.16 0.05 295);
-  --destructive: oklch(0.63 0.22 25);
-  --destructive-foreground: oklch(0.98 0.005 300);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.19 350);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --background: #141414;
+  --foreground: #ffffff;
+  --card: #181818;
+  --card-foreground: #ffffff;
+  --popover: #181818;
+  --popover-foreground: #ffffff;
+  --primary: #e50914;
+  --primary-foreground: #ffffff;
+  --secondary: #2b2b2b;
+  --secondary-foreground: #ffffff;
+  --muted: #2b2b2b;
+  --muted-foreground: #b3b3b3;
+  --accent: #333333;
+  --accent-foreground: #ffffff;
+  --destructive: #e50914;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #e50914;
+
+  --header: #0b0b0b;
+  --elevated: #181818;
+  --field: #2b2b2b;
+  --red-hover: #b20710;
+  --btn-secondary: rgba(109, 109, 110, 0.7);
+  --btn-secondary-hover: rgba(109, 109, 110, 0.9);
+  --overlay: rgba(0, 0, 0, 0.65);
+
+  --chart-1: #e50914;
+  --chart-2: #b20710;
+  --chart-3: #b3b3b3;
+  --chart-4: #808080;
+  --chart-5: #4d4d4d;
+  --sidebar: #0b0b0b;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #e50914;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #181818;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+  --sidebar-ring: #e50914;
 }
 
+/*
+ * O app não alterna a classe .dark (o tema dark já é o padrão em :root),
+ * mas mantemos .dark espelhando a mesma paleta para não sobrar nenhuma
+ * cor antiga caso a classe seja aplicada no futuro.
+ */
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: #141414;
+  --foreground: #ffffff;
+  --card: #181818;
+  --card-foreground: #ffffff;
+  --popover: #181818;
+  --popover-foreground: #ffffff;
+  --primary: #e50914;
+  --primary-foreground: #ffffff;
+  --secondary: #2b2b2b;
+  --secondary-foreground: #ffffff;
+  --muted: #2b2b2b;
+  --muted-foreground: #b3b3b3;
+  --accent: #333333;
+  --accent-foreground: #ffffff;
+  --destructive: #e50914;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #e50914;
+
+  --header: #0b0b0b;
+  --elevated: #181818;
+  --field: #2b2b2b;
+  --red-hover: #b20710;
+  --btn-secondary: rgba(109, 109, 110, 0.7);
+  --btn-secondary-hover: rgba(109, 109, 110, 0.9);
+  --overlay: rgba(0, 0, 0, 0.65);
+
+  --chart-1: #e50914;
+  --chart-2: #b20710;
+  --chart-3: #b3b3b3;
+  --chart-4: #808080;
+  --chart-5: #4d4d4d;
+  --sidebar: #0b0b0b;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #e50914;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #181818;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+  --sidebar-ring: #e50914;
 }
 
 @layer base {
@@ -144,13 +194,30 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      radial-gradient(900px 500px at 12% -8%, oklch(0.34 0.12 320 / 45%), transparent 60%),
-      radial-gradient(800px 500px at 95% 0%, oklch(0.32 0.11 280 / 40%), transparent 60%);
-    background-attachment: fixed;
   }
 
   h1, h2, h3 {
     font-family: var(--font-display);
+  }
+
+  /* Barra de rolagem escura, indicador em cinza (nada de rosa/roxo). */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #4d4d4d var(--color-background);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4d4d4d;
+    border-radius: 8px;
+    border: 2px solid var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6d6d6d;
   }
 }

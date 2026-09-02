@@ -51,7 +51,7 @@ export function Catalogo({
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder="Buscar por nome ou categoria…"
             aria-label="Buscar desenho no catálogo"
-            className="h-12 w-full rounded-full border border-white/10 bg-white/5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
+            className="h-12 w-full rounded-md border border-border bg-field pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none"
           />
         </div>
       </div>
@@ -65,10 +65,10 @@ export function Catalogo({
               type="button"
               onClick={() => onCategoriaChange(c)}
               aria-pressed={ativo}
-              className={`min-h-11 shrink-0 rounded-full px-4 text-sm font-medium transition ${
+              className={`min-h-11 shrink-0 rounded-md px-4 text-sm font-medium transition-colors ${
                 ativo
-                  ? "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-md"
-                  : "bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground"
+                  ? "bg-primary text-primary-foreground shadow-md hover:bg-red-hover"
+                  : "bg-white/10 text-muted-foreground hover:bg-white/20 hover:text-foreground"
               }`}
             >
               {c}

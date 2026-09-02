@@ -174,7 +174,7 @@ export function PlayerYoutube({
   };
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black/60 shadow-lg ring-1 ring-white/10">
+    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-lg ring-1 ring-border">
       <div className="absolute inset-0">
         <div ref={hostRef} className="h-full w-full" />
       </div>
@@ -185,9 +185,9 @@ export function PlayerYoutube({
           onClick={start}
           disabled={!ready}
           aria-label={`Reproduzir ${title}`}
-          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-background/40 to-background/80 backdrop-blur-[2px] transition hover:from-background/30"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-overlay backdrop-blur-[2px] transition-colors hover:bg-black/50"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition group-hover:scale-105">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition hover:bg-red-hover">
             <Play className="h-7 w-7 translate-x-[2px]" fill="currentColor" />
           </span>
           <span className="text-sm font-medium text-foreground">
@@ -197,13 +197,13 @@ export function PlayerYoutube({
       )}
 
       {blocked && !error && (
-        <p className="absolute inset-x-0 bottom-0 bg-background/85 px-4 py-2 text-center text-xs text-muted-foreground">
+        <p className="absolute inset-x-0 bottom-0 bg-elevated/95 px-4 py-2 text-center text-xs text-muted-foreground">
           O navegador bloqueou a reprodução automática. Toque no play do player para continuar.
         </p>
       )}
 
       {error && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-background/95 px-6 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-elevated px-6 text-center">
           <AlertTriangle className="h-8 w-8 text-primary" />
           <p className="text-sm text-muted-foreground">
             Este vídeo não pôde ser reproduzido no momento. Tente novamente mais tarde.

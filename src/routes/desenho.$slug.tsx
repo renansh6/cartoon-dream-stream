@@ -102,7 +102,7 @@ function DetalheDesenho() {
         <div className="relative mx-auto max-w-7xl px-4 pt-6 sm:px-6">
           <Link
             to="/desenhos"
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm text-foreground transition hover:bg-white/20"
+            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-btn-secondary px-4 text-sm text-white transition-colors hover:bg-btn-secondary-hover"
           >
             <ArrowLeft className="h-4 w-4" /> Voltar
           </Link>
@@ -112,10 +112,10 @@ function DetalheDesenho() {
               src={desenho.cover}
               alt={`Capa de ${desenho.title}`}
               loading="lazy"
-              className="hidden h-44 w-32 rounded-2xl object-cover ring-1 ring-white/15 sm:block"
+              className="hidden h-44 w-32 rounded-md object-cover ring-1 ring-border sm:block"
             />
             <div>
-              <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">
+              <span className="rounded-md bg-white/10 px-3 py-1 text-xs font-medium text-foreground">
                 {desenho.category}
               </span>
               <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
@@ -127,7 +127,7 @@ function DetalheDesenho() {
                 <button
                   type="button"
                   onClick={() => selecionar(retomar ?? indexAtual)}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 text-sm font-semibold text-primary-foreground shadow-lg transition hover:opacity-90"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
                 >
                   <Play className="h-4 w-4" fill="currentColor" /> Assistir agora
                 </button>
@@ -135,7 +135,7 @@ function DetalheDesenho() {
                   <button
                     type="button"
                     onClick={() => selecionar(retomar)}
-                    className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-5 text-sm font-medium text-foreground transition hover:bg-white/20"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-md bg-btn-secondary px-5 text-sm font-medium text-white transition-colors hover:bg-btn-secondary-hover"
                   >
                     Continuar do episódio {retomar + 1}
                   </button>
@@ -166,7 +166,7 @@ function DetalheDesenho() {
                   if (window.matchMedia("(max-width: 1023px)").matches) rolarAtePlayer();
                 }}
                 disabled={indexAtual <= 0}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm text-foreground transition hover:bg-white/20 disabled:opacity-40"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-btn-secondary px-4 text-sm text-white transition-colors hover:bg-btn-secondary-hover disabled:opacity-40"
               >
                 <ChevronLeft className="h-4 w-4" /> Anterior
               </button>
@@ -177,7 +177,7 @@ function DetalheDesenho() {
                   if (window.matchMedia("(max-width: 1023px)").matches) rolarAtePlayer();
                 }}
                 disabled={indexAtual >= lista.length - 1}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-white/10 px-4 text-sm text-foreground transition hover:bg-white/20 disabled:opacity-40"
+                className="inline-flex min-h-11 items-center gap-2 rounded-md bg-btn-secondary px-4 text-sm text-white transition-colors hover:bg-btn-secondary-hover disabled:opacity-40"
               >
                 Próximo <ChevronRight className="h-4 w-4" />
               </button>
@@ -194,7 +194,7 @@ function DetalheDesenho() {
           </h2>
           <ul className="mt-3 max-h-[420px] space-y-2 overflow-y-auto pr-1 lg:max-h-[520px]">
             {lista.length === 0 && temPlaylist && (
-              <li className="rounded-xl bg-white/5 p-4 text-sm text-muted-foreground">
+              <li className="rounded-md bg-elevated p-4 text-sm text-muted-foreground">
                 Carregando a lista de episódios…
               </li>
             )}
@@ -205,8 +205,8 @@ function DetalheDesenho() {
                   <button
                     type="button"
                     onClick={() => selecionar(i)}
-                    className={`flex min-h-11 w-full items-center gap-3 rounded-xl p-2 text-left transition ${
-                      ativo ? "bg-primary/20 ring-1 ring-primary/60" : "bg-white/5 hover:bg-white/10"
+                    className={`flex min-h-11 w-full items-center gap-3 rounded-md p-2 text-left transition-colors ${
+                      ativo ? "bg-primary/20 ring-1 ring-primary" : "bg-white/5 hover:bg-white/10"
                     }`}
                   >
                     <img
