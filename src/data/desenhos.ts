@@ -133,6 +133,12 @@ export const desenhos: Desenho[] = [
   {"id": "50", "slug": "barbie-big-city-big-dreams", "title": "Barbie: Big City, Big Dreams", "category": "Filmes", "description": "Assista Barbie: Big City, Big Dreams completo agora.", "cover": "https://i.ytimg.com/vi/lfU-vofXzcE/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/lfU-vofXzcE/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=lfU-vofXzcE&list=PLH8Qh1sYHs5txYpac-esE7arPrYlHHchf", "featured": false},
 ];
 
+// Os pôsteres ficam hospedados no CDN do Lovable sob caminhos absolutos `/__l5e/...`,
+// que só resolvem no domínio `*.lovable.app`. Fora dele (vite dev local, deploy na
+// Vercel etc.) esses caminhos dão 404, então prefixamos a origem do app publicado.
+const ASSET_ORIGIN = "https://cartoon-dream-stream.lovable.app";
+const resolveAssetUrl = (u: string) => (u.startsWith("/") ? ASSET_ORIGIN + u : u);
+
 const posters: Record<string, string> = {
   "sakura-card-captors": sakura.url,
   "ursinhos-carinhosos": ursinhos.url,
@@ -188,7 +194,7 @@ const posters: Record<string, string> = {
 
 for (const d of desenhos) {
   const p = posters[d.slug];
-  if (p) d.poster = p;
+  if (p) d.poster = resolveAssetUrl(p);
 }
 
 export const destaques = desenhos.filter((d) => d.featured);
