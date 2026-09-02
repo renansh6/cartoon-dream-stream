@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ColorirRouteImport } from './routes/colorir'
 import { Route as DesenhosRouteImport } from './routes/desenhos'
 import { Route as DesenhoSlugRouteImport } from './routes/desenho.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ColorirRoute = ColorirRouteImport.update({
+  id: '/colorir',
+  path: '/colorir',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DesenhosRoute = DesenhosRouteImport.update({
@@ -31,30 +37,34 @@ const DesenhoSlugRoute = DesenhoSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/colorir': typeof ColorirRoute
   '/desenhos': typeof DesenhosRoute
   '/desenho/$slug': typeof DesenhoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/colorir': typeof ColorirRoute
   '/desenhos': typeof DesenhosRoute
   '/desenho/$slug': typeof DesenhoSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/colorir': typeof ColorirRoute
   '/desenhos': typeof DesenhosRoute
   '/desenho/$slug': typeof DesenhoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/desenhos' | '/desenho/$slug'
+  fullPaths: '/' | '/colorir' | '/desenhos' | '/desenho/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/desenhos' | '/desenho/$slug'
-  id: '__root__' | '/' | '/desenhos' | '/desenho/$slug'
+  to: '/' | '/colorir' | '/desenhos' | '/desenho/$slug'
+  id: '__root__' | '/' | '/colorir' | '/desenhos' | '/desenho/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ColorirRoute: typeof ColorirRoute
   DesenhosRoute: typeof DesenhosRoute
   DesenhoSlugRoute: typeof DesenhoSlugRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/colorir': {
+      id: '/colorir'
+      path: '/colorir'
+      fullPath: '/colorir'
+      preLoaderRoute: typeof ColorirRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/desenhos': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ColorirRoute: ColorirRoute,
   DesenhosRoute: DesenhosRoute,
   DesenhoSlugRoute: DesenhoSlugRoute,
 }

@@ -31,7 +31,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="ml-6 hidden items-center gap-1 md:flex">
+        <nav className="ml-6 hidden items-center gap-1 lg:flex">
           <Link
             to="/"
             className="rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
@@ -47,9 +47,16 @@ export function Header() {
           >
             Todos os desenhos
           </Link>
+          <Link
+            to="/colorir"
+            className="rounded-md px-3 py-2 text-sm text-muted-foreground transition hover:bg-white/5 hover:text-foreground"
+            activeProps={{ className: "text-foreground bg-white/10" }}
+          >
+            Para colorir
+          </Link>
         </nav>
 
-        <div className="ml-auto hidden md:block">
+        <div className="ml-auto hidden lg:block">
           <SearchInput value={q} onChange={buscar} />
         </div>
 
@@ -58,14 +65,14 @@ export function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
-          className="ml-auto flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-foreground md:hidden"
+          className="ml-auto flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-foreground lg:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t border-border bg-header px-4 pb-4 pt-3 md:hidden">
+        <div className="border-t border-border bg-header px-4 pb-4 pt-3 lg:hidden">
           <SearchInput value={q} onChange={buscar} />
           <div className="mt-3 flex flex-col">
             <Link
@@ -81,6 +88,13 @@ export function Header() {
               className="flex min-h-11 items-center rounded-md px-3 text-sm text-foreground"
             >
               Todos os desenhos
+            </Link>
+            <Link
+              to="/colorir"
+              onClick={() => setOpen(false)}
+              className="flex min-h-11 items-center rounded-md px-3 text-sm text-foreground"
+            >
+              Para colorir
             </Link>
           </div>
         </div>
