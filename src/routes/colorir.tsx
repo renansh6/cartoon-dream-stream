@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Palette } from "lucide-react";
 import { site } from "@/config/site";
+import { ColorirBlur, ColorirGate, useColorirLiberado } from "@/components/ColorirGate";
 
 export const Route = createFileRoute("/colorir")({
   head: () => ({
@@ -58,9 +59,16 @@ const categorias: Categoria[] = [
 ];
 
 function ParaColorir() {
+  const { liberado, checado, liberar } = useColorirLiberado();
+  const bloqueado = checado && !liberado;
+
   return (
     <div className="pt-4">
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      {bloqueado ? (
+        <ColorirGate bannerUrl={capaDe("princesas")} onLiberado={liberar} />
+      ) : null}
+      <ColorirBlur ativo={bloqueado}>
+        <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
           Desenhos para colorir e imprimir
         </h1>
@@ -133,6 +141,7 @@ function ParaColorir() {
           Conteúdo gratuito disponibilizado pelo site parceiro Desenhos &amp; Colorir.
         </p>
       </section>
+      </ColorirBlur>
     </div>
   );
 }
