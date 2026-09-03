@@ -213,17 +213,16 @@ if (juniperLee) juniperLee.poster = juniperLeePoster;
 
 /* =========================================================================
    Acervo Barbie (Barbie Hub) — títulos adicionados APÓS o catálogo atual.
-   Restam apenas os 4 cujos players (embeds do YouTube) continuam no ar; os
-   demais foram removidos porque o site que os hospedava (RedeCanais) saiu do ar.
-   `externalUrl` = endereço de reprodução do próprio título; o card abre esse
-   endereço direto, na mesma aba, sem página intermediária. As capas usam as
-   URLs já registradas no Barbie Hub.
+   Restam apenas os 4 cujos vídeos do YouTube continuam no ar; os demais foram
+   removidos porque o site que os hospedava (RedeCanais) saiu do ar. Abrem a
+   mesma página interna (com player, capa e recomendados) que todos os outros
+   títulos. As capas usam as URLs já registradas no Barbie Hub.
    ========================================================================= */
 const barbieHub: Desenho[] = [
-  { id: "62", slug: "barbie-hub-10", title: "Barbie e a Magia de Aladus (2005)", category: "Filmes", collection: "Barbie", description: "Barbie e a Magia de Aladus (2005)", cover: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", coverHd: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", poster: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", youtubeUrl: "", externalUrl: "https://www.youtube.com/embed/lBpitQv-kTI?rel=0", featured: false },
-  { id: "65", slug: "barbie-hub-13", title: "Barbie e Suas Irmãs em Uma Aventura de Cavalos (2013)", category: "Filmes", collection: "Barbie", description: "Barbie e Suas Irmãs em Uma Aventura de Cavalos (2013)", cover: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", coverHd: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", poster: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", youtubeUrl: "", externalUrl: "https://www.youtube.com/embed/x27iPHXvJk0?rel=0", featured: false },
-  { id: "70", slug: "barbie-hub-18", title: "Barbie e Suas Irmãs em Busca dos Cachorrinhos (2016)", category: "Filmes", collection: "Barbie", description: "Barbie e Suas Irmãs em Busca dos Cachorrinhos (2016)", cover: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", coverHd: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", poster: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", youtubeUrl: "", externalUrl: "https://www.youtube.com/embed/P2eo828nhlw?rel=0", featured: false },
-  { id: "75", slug: "barbie-hub-23", title: "Barbie em As 12 Princesas Bailarinas (2006)", category: "Filmes", collection: "Barbie", description: "Barbie em As 12 Princesas Bailarinas (2006)", cover: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", coverHd: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", poster: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", youtubeUrl: "", externalUrl: "https://www.youtube.com/embed/-eCEAeDGDTg?rel=0", featured: false },
+  { id: "62", slug: "barbie-hub-10", title: "Barbie e a Magia de Aladus (2005)", category: "Filmes", collection: "Barbie", description: "Barbie e a Magia de Aladus (2005)", cover: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", coverHd: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", poster: "https://image.tmdb.org/t/p/w500/2QPrRMN6DlJAPuh39Dps1CRCurv.jpg", youtubeUrl: "https://www.youtube.com/watch?v=lBpitQv-kTI", featured: false },
+  { id: "65", slug: "barbie-hub-13", title: "Barbie e Suas Irmãs em Uma Aventura de Cavalos (2013)", category: "Filmes", collection: "Barbie", description: "Barbie e Suas Irmãs em Uma Aventura de Cavalos (2013)", cover: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", coverHd: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", poster: "https://image.tmdb.org/t/p/w500/e7pCbv0usfvd7ZWv7rQX02dyG1A.jpg", youtubeUrl: "https://www.youtube.com/watch?v=x27iPHXvJk0", featured: false },
+  { id: "70", slug: "barbie-hub-18", title: "Barbie e Suas Irmãs em Busca dos Cachorrinhos (2016)", category: "Filmes", collection: "Barbie", description: "Barbie e Suas Irmãs em Busca dos Cachorrinhos (2016)", cover: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", coverHd: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", poster: "https://image.tmdb.org/t/p/w500/lhRdNP1wx1wnz5aZSHVXmvoTufs.jpg", youtubeUrl: "https://www.youtube.com/watch?v=P2eo828nhlw", featured: false },
+  { id: "75", slug: "barbie-hub-23", title: "Barbie em As 12 Princesas Bailarinas (2006)", category: "Filmes", collection: "Barbie", description: "Barbie em As 12 Princesas Bailarinas (2006)", cover: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", coverHd: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", poster: "https://image.tmdb.org/t/p/w500/d1WbtY6ThUE2P7riFqmPIYCnUdi.jpg", youtubeUrl: "https://www.youtube.com/watch?v=-eCEAeDGDTg", featured: false },
 ];
 
 desenhos.push(...barbieHub);
