@@ -60,6 +60,18 @@ export function Header() {
         </div>
       </div>
 
+      {/* Atalho para a área de colorir — sempre visível no mobile, fora do menu hambúrguer. */}
+      <div className="border-t border-border bg-header px-4 py-2.5 sm:px-6 lg:hidden">
+        <Link
+          to="/colorir"
+          onClick={() => setOpen(false)}
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-xl font-extrabold uppercase tracking-wide text-primary-foreground shadow-lg shadow-black/40 transition-colors hover:bg-red-hover active:bg-red-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <span aria-hidden>🎨</span>
+          PARA COLORIR
+        </Link>
+      </div>
+
       {open && (
         <div className="border-t border-border bg-header px-4 pb-4 pt-3 lg:hidden">
           <SearchInput value={q} onChange={buscar} />
@@ -71,14 +83,6 @@ export function Header() {
               activeProps={{ className: "bg-field" }}
             >
               Todos os desenhos
-            </Link>
-            <Link
-              to="/colorir"
-              onClick={() => setOpen(false)}
-              className="flex min-h-11 items-center rounded-md px-3 text-sm text-foreground"
-              activeProps={{ className: "bg-field" }}
-            >
-              Para colorir
             </Link>
           </div>
         </div>

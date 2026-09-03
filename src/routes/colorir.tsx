@@ -69,10 +69,13 @@ function ParaColorir() {
       ) : null}
       <ColorirBlur ativo={bloqueado}>
         <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          Desenhos para colorir e imprimir
+        <h1 className="text-[27px] font-extrabold uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
+          DESENHOS PARA COLORIR
         </h1>
-        <p className="mt-2 max-w-2xl text-sm text-muted-foreground sm:text-base">
+        <p className="mt-2 text-sm font-semibold text-foreground sm:text-base">
+          Mais de 2.000 desenhos prontos para imprimir e colorir
+        </p>
+        <p className="mt-1 max-w-2xl text-sm text-muted-foreground sm:text-base">
           Escolha seus personagens favoritos, imprima os desenhos e deixe a criatividade ganhar
           vida!
         </p>
