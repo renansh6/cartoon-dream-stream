@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Play, AlertTriangle } from "lucide-react";
+import { Play, AlertTriangle, ExternalLink } from "lucide-react";
 import { loadYoutubeApi, parseYoutubeUrl } from "@/lib/youtube";
+
+/** Códigos de erro da IFrame API em que o vídeo existe mas não pode tocar aqui. */
+const EMBED_BLOQUEADO = new Set([101, 150]);
+const VIDEO_INDISPONIVEL = new Set([2, 5, 100]);
 
 export interface PlayerHandle {
   playAt: (index: number) => void;
@@ -32,8 +36,19 @@ export function PlayerYoutube({
   const [started, setStarted] = useState(false);
   const [blocked, setBlocked] = useState(false);
   const [error, setError] = useState(false);
+  const [errorCode, setErrorCode] = useState<number | null>(null);
 
   const parsed = parseYoutubeUrl(url);
+
+  /** Link direto para assistir no YouTube (mesmo vídeo/playlist e ponto de partida). */
+  const watchUrl = (() => {
+    const params = new URLSearchParams();
+    if (parsed.videoId) params.set("v", parsed.videoId);
+    if (parsed.playlistId) params.set("list", parsed.playlistId);
+    if (parsed.startSeconds) params.set("t", `${parsed.startSeconds}s`);
+    const query = params.toString();
+    return query ? `https://www.youtube.com/watch?${query}` : url;
+  })();
   const episodesCb = useRef(onEpisodes);
   const indexCb = useRef(onIndexChange);
   episodesCb.current = onEpisodes;
@@ -61,6 +76,7 @@ export function PlayerYoutube({
     setStarted(false);
     setBlocked(false);
     setError(false);
+    setErrorCode(null);
 
     loadYoutubeApi()
       .then((YT) => {
@@ -112,7 +128,11 @@ export function PlayerYoutube({
                 // Último item (ou vídeo único): para, sem reiniciar.
               }
             },
-            onError: () => setError(true),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onError: (event: any) => {
+              setError(true);
+              setErrorCode(typeof event?.data === "number" ? event.data : null);
+            },
           },
         });
         playerRef.current = player;
@@ -205,9 +225,21 @@ export function PlayerYoutube({
       {error && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-elevated px-6 text-center">
           <AlertTriangle className="h-8 w-8 text-primary" />
-          <p className="text-sm text-muted-foreground">
-            Este vídeo não pôde ser reproduzido no momento. Tente novamente mais tarde.
+          <p className="max-w-md text-sm text-muted-foreground">
+            {errorCode !== null && EMBED_BLOQUEADO.has(errorCode)
+              ? "O canal do YouTube desativou a reprodução deste vídeo fora do site do YouTube. Você pode assisti-lo diretamente por lá."
+              : errorCode !== null && VIDEO_INDISPONIVEL.has(errorCode)
+                ? "Este vídeo está indisponível no YouTube no momento. Tente assistir diretamente por lá."
+                : "Este vídeo não pôde ser reproduzido no momento. Tente novamente mais tarde."}
           </p>
+          <a
+            href={watchUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
+          >
+            <ExternalLink className="h-4 w-4" /> Assistir no YouTube
+          </a>
         </div>
       )}
     </div>

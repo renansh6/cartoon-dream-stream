@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
+import { PlayerEmbed } from "@/components/PlayerEmbed";
 import { CardDesenho } from "@/components/CardDesenho";
 import { desenhos, getDesenhoBySlug } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
@@ -53,8 +54,9 @@ export const Route = createFileRoute("/desenho/$slug")({
 function DetalheDesenho() {
   const { desenho } = Route.useLoaderData();
   const location = useLocation();
+  const usaEmbed = Boolean(desenho.embedUrl);
   const parsed = parseYoutubeUrl(desenho.youtubeUrl);
-  const temPlaylist = Boolean(parsed.playlistId);
+  const temPlaylist = !usaEmbed && Boolean(parsed.playlistId);
 
   const playerRef = useRef<PlayerHandle>(null);
   const playerBoxRef = useRef<HTMLDivElement>(null);
@@ -139,7 +141,7 @@ function DetalheDesenho() {
               <div className="mt-4 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  onClick={() => selecionar(retomar ?? indexAtual)}
+                  onClick={() => (usaEmbed ? rolarAtePlayer() : selecionar(retomar ?? indexAtual))}
                   className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
                 >
                   <Play className="h-4 w-4" fill="currentColor" /> Assistir agora
@@ -161,15 +163,19 @@ function DetalheDesenho() {
 
       <div className="mx-auto mt-8 grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div id="player" ref={playerBoxRef} className="scroll-mt-20">
-          <PlayerYoutube
-            key={desenho.slug}
-            ref={playerRef}
-            url={desenho.youtubeUrl}
-            title={desenho.title}
-            startIndex={startIndex}
-            onEpisodes={setEpisodios}
-            onIndexChange={setIndexAtual}
-          />
+          {usaEmbed ? (
+            <PlayerEmbed key={desenho.slug} src={desenho.embedUrl!} title={desenho.title} />
+          ) : (
+            <PlayerYoutube
+              key={desenho.slug}
+              ref={playerRef}
+              url={desenho.youtubeUrl}
+              title={desenho.title}
+              startIndex={startIndex}
+              onEpisodes={setEpisodios}
+              onIndexChange={setIndexAtual}
+            />
+          )}
           {temPlaylist && lista.length > 1 && (
             <div className="mt-4 flex items-center gap-3">
               <button
