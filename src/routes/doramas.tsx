@@ -47,7 +47,7 @@ function DoramasFlix() {
           {semBanner ? (
             <div className="flex flex-col items-center gap-3 px-6 py-16 text-center">
               <span className="rounded-full bg-yellow-400 px-3 py-1 text-sm font-extrabold text-[#2b0a4a]">
-                R$ 25
+                R$ 19,90
               </span>
               <h1 className="text-4xl font-extrabold uppercase tracking-tight text-white sm:text-5xl">
                 Doramas Flix
