@@ -105,7 +105,7 @@ function DetalheDesenho() {
 
   const status = temPlaylist ? "Episódios disponíveis" : "Filme completo";
   const itemUnicoLabel =
-    desenho.category === "Filmes" || ehDorama ? "Filme completo" : "Episódio disponível";
+    desenho.category === "Filmes" || ehDorama || usaEmbed ? "Filme completo" : "Episódio disponível";
   const lista = temPlaylist ? episodios : parsed.videoId ? [parsed.videoId] : [];
   const recomendados = (ehDorama ? doramas : desenhos)
     .filter((d) => d.slug !== desenho.slug && d.category === desenho.category)
