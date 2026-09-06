@@ -68,7 +68,7 @@ function DoramasFlix() {
           className="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-[#c026d3] to-[#7e22ce] px-8 text-base font-bold text-white shadow-lg shadow-fuchsia-900/40 transition hover:brightness-110"
         >
           <ShoppingCart className="h-5 w-5" />
-          Assinar por R$ 25
+          Assista aqui
         </a>
         <p className="mt-3 text-xs text-muted-foreground">Pagamento seguro • Acesso vitalício</p>
       </div>
