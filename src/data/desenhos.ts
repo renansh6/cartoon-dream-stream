@@ -61,7 +61,8 @@ export type Categoria =
   | "Para as Pequenas"
   | "Filmes"
   | "Documentário"
-  | "Doramas";
+  | "Doramas"
+  | "Desenhos Bíblicos";
 
 export interface Desenho {
   id: string;
@@ -93,6 +94,7 @@ export const categorias: Categoria[] = [
   "Ação e Aventura",
   "Para as Pequenas",
   "Filmes",
+  "Desenhos Bíblicos",
 ];
 
 export const desenhos: Desenho[] = [
@@ -147,8 +149,11 @@ export const desenhos: Desenho[] = [
   {"id": "49", "slug": "barbie-dreamhouse-adventures", "title": "Barbie Dreamhouse Adventures", "category": "Clássicos", "collection": "Barbie", "description": "Assista agora aos episódios disponíveis de Barbie Dreamhouse Adventures.", "cover": "https://i.ytimg.com/vi/tkC7G0M6k6Q/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/tkC7G0M6k6Q/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=tkC7G0M6k6Q&list=PLH8Qh1sYHs5tWqTSByxJYwcpzj716cOdh", "featured": false},
   {"id": "50", "slug": "barbie-big-city-big-dreams", "title": "Barbie: Big City, Big Dreams", "category": "Filmes", "collection": "Barbie", "description": "Assista Barbie: Big City, Big Dreams completo agora.", "cover": "https://i.ytimg.com/vi/lfU-vofXzcE/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/lfU-vofXzcE/hqdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=lfU-vofXzcE&list=PLH8Qh1sYHs5txYpac-esE7arPrYlHHchf", "featured": false},
   {"id": "51", "slug": "a-vida-e-aventuras-de-juniper-lee", "title": "A Vida e Aventuras de Juniper Lee", "category": "Magia e Fantasia", "description": "Assista agora aos episódios disponíveis de A Vida e Aventuras de Juniper Lee.", "cover": "https://i.ytimg.com/vi/7eK0m8_Wh04/hqdefault.jpg", "coverHd": "https://i.ytimg.com/vi/7eK0m8_Wh04/hqdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=7eK0m8_Wh04&list=PL51PDZLq7jSEedlIQIiPpcwQfk50dOVt1", "featured": false},
-  {"id": "52", "slug": "abraao-e-isaque", "title": "Abraão e Isaque", "category": "Para as Pequenas", "description": "Assista agora aos episódios disponíveis de Abraão e Isaque.", "cover": "https://i.ytimg.com/vi/S_bUZ1BJ-Xg/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/S_bUZ1BJ-Xg/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=S_bUZ1BJ-Xg&list=PLQaV4mnfs0_CPHGWchSQGamhcPkjpUYrZ", "featured": false},
-  {"id": "53", "slug": "reino-do-ceu-os-milagres-de-jesus", "title": "Reino do Céu: Os Milagres de Jesus", "category": "Para as Pequenas", "description": "Assista Reino do Céu: Os Milagres de Jesus completo agora.", "cover": "https://i.ytimg.com/vi/oHpxexZ5yR8/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/oHpxexZ5yR8/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=oHpxexZ5yR8", "featured": false},
+  {"id": "52", "slug": "abraao-e-isaque", "title": "Abraão e Isaque", "category": "Desenhos Bíblicos", "description": "Assista agora aos episódios disponíveis de Abraão e Isaque.", "cover": "https://i.ytimg.com/vi/S_bUZ1BJ-Xg/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/S_bUZ1BJ-Xg/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=S_bUZ1BJ-Xg&list=PLQaV4mnfs0_CPHGWchSQGamhcPkjpUYrZ", "featured": false},
+  {"id": "53", "slug": "reino-do-ceu-os-milagres-de-jesus", "title": "Reino do Céu: Os Milagres de Jesus", "category": "Desenhos Bíblicos", "description": "Assista Reino do Céu: Os Milagres de Jesus completo agora.", "cover": "https://i.ytimg.com/vi/oHpxexZ5yR8/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/oHpxexZ5yR8/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=oHpxexZ5yR8", "featured": false},
+  {"id": "54", "slug": "o-pao-do-ceu", "title": "O Pão do Céu", "category": "Desenhos Bíblicos", "description": "Assista O Pão do Céu completo agora.", "cover": "https://i.ytimg.com/vi/-GO4oAM8Ejs/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/-GO4oAM8Ejs/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=-GO4oAM8Ejs", "featured": false},
+  {"id": "55", "slug": "tesouro-no-ceu", "title": "Tesouro no Céu", "category": "Desenhos Bíblicos", "description": "Assista Tesouro no Céu completo agora.", "cover": "https://i.ytimg.com/vi/vxHB7nCSqOs/maxresdefault.jpg", "coverHd": "https://i.ytimg.com/vi/vxHB7nCSqOs/maxresdefault.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=vxHB7nCSqOs", "featured": false},
+  {"id": "56", "slug": "5-horas-de-desenhos-biblicos", "title": "5 Horas de Desenhos Bíblicos", "category": "Desenhos Bíblicos", "description": "Assista 5 Horas de Desenhos Bíblicos completo agora.", "cover": "/thumbs/5h-desenhos-biblicos.jpg", "coverHd": "/thumbs/5h-desenhos-biblicos.jpg", "youtubeUrl": "https://www.youtube.com/watch?v=PLJag8AZVdo", "featured": false},
 ];
 
 // Os pôsteres ficam hospedados no CDN do Lovable sob caminhos absolutos `/__l5e/...`,
