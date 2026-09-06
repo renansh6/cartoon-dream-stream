@@ -38,6 +38,7 @@ export function Header() {
           </NavItem>
           <NavItem to="/desenhos">Todos os desenhos</NavItem>
           <NavItem to="/colorir">Para colorir</NavItem>
+          <NavItem to="/doramas">Doramas Flix</NavItem>
         </nav>
 
         <div className="ml-auto hidden lg:block">
@@ -60,8 +61,8 @@ export function Header() {
         </div>
       </div>
 
-      {/* Atalho para a área de colorir — sempre visível no mobile, fora do menu hambúrguer. */}
-      <div className="border-t border-border bg-header px-4 py-2.5 sm:px-6 lg:hidden">
+      {/* Atalhos sempre visíveis no mobile, fora do menu hambúrguer. */}
+      <div className="flex flex-col gap-2 border-t border-border bg-header px-4 py-2.5 sm:px-6 lg:hidden">
         <Link
           to="/colorir"
           onClick={() => setOpen(false)}
@@ -69,6 +70,14 @@ export function Header() {
         >
           <span aria-hidden>🎨</span>
           PARA COLORIR
+        </Link>
+        <Link
+          to="/doramas"
+          onClick={() => setOpen(false)}
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#c026d3] to-[#7e22ce] px-4 py-3 text-xl font-extrabold uppercase tracking-wide text-white shadow-lg shadow-black/40 transition hover:brightness-110 active:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <span aria-hidden>🎬</span>
+          DORAMAS FLIX
         </Link>
       </div>
 
