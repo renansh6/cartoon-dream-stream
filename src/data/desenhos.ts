@@ -53,6 +53,18 @@ import belaAdormecida from "@/assets/capas/belaador.webp.asset.json";
 import pequenaSereia from "@/assets/capas/pequenasereia.webp.asset.json";
 import cinderela from "@/assets/capas/cinderela.webp.asset.json";
 import rapunzel from "@/assets/capas/rapunzel.webp.asset.json";
+import dorama_aFaxineiraEOBilionario from "@/assets/capas/doramas/a-faxineira-e-o-bilionario.jpg";
+import dorama_aFilhaDoCeo from "@/assets/capas/doramas/a-filha-do-ceo.jpg";
+import dorama_aIrmaGemea from "@/assets/capas/doramas/a-irma-gemea.jpg";
+import dorama_casamentoPorImpulsoComOBilionario from "@/assets/capas/doramas/casamento-por-impulso-com-o-bilionario.jpg";
+import dorama_elaSalvouUmBilionario from "@/assets/capas/doramas/ela-salvou-um-bilionario.jpg";
+import dorama_eleAProcurouPorTodoEsseTempo from "@/assets/capas/doramas/ele-a-procurou-por-todo-esse-tempo.jpg";
+import dorama_gordaTransformaSeEmPrincesa from "@/assets/capas/doramas/gorda-transforma-se-em-princesa.jpg";
+import dorama_herdeiraDeBilhoes from "@/assets/capas/doramas/herdeira-de-bilhoes.jpg";
+import dorama_oCeoQuePodeLerMentes from "@/assets/capas/doramas/o-ceo-que-pode-ler-mentes.jpg";
+import dorama_oEstranhoQueMeSalvou from "@/assets/capas/doramas/o-estranho-que-me-salvou.jpg";
+import dorama_renasciParaAmarOutraVez from "@/assets/capas/doramas/renasci-para-amar-outra-vez.jpg";
+import dorama_sobAProtecaoDoBilionario from "@/assets/capas/doramas/sob-a-protecao-do-bilionario.jpg";
 
 export type Categoria =
   | "Clássicos"
@@ -60,7 +72,8 @@ export type Categoria =
   | "Ação e Aventura"
   | "Para as Pequenas"
   | "Filmes"
-  | "Documentário";
+  | "Documentário"
+  | "Doramas";
 
 export interface Desenho {
   id: string;
@@ -273,6 +286,26 @@ desenhos.push(...barbieHub);
 
 export const destaques = desenhos.filter((d) => d.featured);
 
+/* =========================================================================
+   Doramas (aba "Doramas Flix") — catálogo importado do site assistirdorama.
+   Ficam FORA do array `desenhos` (não aparecem em "Todos os desenhos" nem na
+   home). Abrem a mesma página interna /desenho/$slug, com o player do YouTube.
+   ========================================================================= */
+export const doramas: Desenho[] = [
+  { id: "dr1", slug: "a-faxineira-e-o-bilionario", title: "A Faxineira e o Bilionário", category: "Doramas", collection: "Doramas", description: "Traída e vendida pelo namorado a um segurança, uma faxineira descobre que seu novo protetor é, na verdade, um bilionário oculto.", cover: dorama_aFaxineiraEOBilionario, coverHd: dorama_aFaxineiraEOBilionario, youtubeUrl: "https://www.youtube.com/watch?v=aj5ISkFDKvI", featured: false },
+  { id: "dr2", slug: "a-filha-do-ceo", title: "A Filha do CEO", category: "Doramas", collection: "Doramas", description: "Uma menina suja o terno do CEO, ele não fica bravo: ela é sua filha biológica!", cover: dorama_aFilhaDoCeo, coverHd: dorama_aFilhaDoCeo, youtubeUrl: "https://www.youtube.com/watch?v=wUshIcZOYYk", featured: false },
+  { id: "dr3", slug: "a-irma-gemea", title: "A Irmã Gêmea", category: "Doramas", collection: "Doramas", description: "A mãe acredita que a filha finalmente voltou para casa, mas quem retornou foi a irmã gêmea, disposta a cobrar uma vingança implacável.", cover: dorama_aIrmaGemea, coverHd: dorama_aIrmaGemea, youtubeUrl: "https://www.youtube.com/watch?v=X-4r0X4vjBk", featured: false },
+  { id: "dr4", slug: "casamento-por-impulso-com-o-bilionario", title: "Casamento por Impulso com o Bilionário", category: "Doramas", collection: "Doramas", description: "Ela salva um desconhecido ferido, aceita casar por impulso e descobre: ele é um bilionário oculto!", cover: dorama_casamentoPorImpulsoComOBilionario, coverHd: dorama_casamentoPorImpulsoComOBilionario, youtubeUrl: "https://www.youtube.com/watch?v=nKHdFHUWgmA", featured: false },
+  { id: "dr5", slug: "ela-salvou-um-bilionario", title: "Ela Salvou um Bilionário", category: "Doramas", collection: "Doramas", description: "Ao salvar um desconhecido em perigo, uma mulher descobre que ele é um bilionário que agora implora para se casar com ela.", cover: dorama_elaSalvouUmBilionario, coverHd: dorama_elaSalvouUmBilionario, youtubeUrl: "https://www.youtube.com/watch?v=KBFARvbxTNA", featured: false },
+  { id: "dr6", slug: "ele-a-procurou-por-todo-esse-tempo", title: "Ele a Procurou por Todo Esse Tempo", category: "Doramas", collection: "Doramas", description: "Ele a procurou por todo esse tempo, sem saber que ela sempre esteve em seus sonhos. Um reencontro que muda o destino de dois corações.", cover: dorama_eleAProcurouPorTodoEsseTempo, coverHd: dorama_eleAProcurouPorTodoEsseTempo, youtubeUrl: "https://www.youtube.com/watch?v=VLTvfq8IrLo", featured: false },
+  { id: "dr7", slug: "gorda-transforma-se-em-princesa", title: "Gorda Transforma-se em Princesa", category: "Doramas", collection: "Doramas", description: "Gorda transforma-se em princesa: desprezada por todos, ela renasce cercada de mimos e conquista o lugar que sempre mereceu.", cover: dorama_gordaTransformaSeEmPrincesa, coverHd: dorama_gordaTransformaSeEmPrincesa, youtubeUrl: "https://www.youtube.com/watch?v=niaECArkA-g", featured: false },
+  { id: "dr8", slug: "herdeira-de-bilhoes", title: "Herdeira de Bilhões", category: "Doramas", collection: "Doramas", description: "Expulsa de casa pelo próprio marido, ela guarda um segredo poderoso: é a herdeira de uma fortuna bilionária pronta para virar o jogo.", cover: dorama_herdeiraDeBilhoes, coverHd: dorama_herdeiraDeBilhoes, youtubeUrl: "https://www.youtube.com/watch?v=k1h8Sa5muFw", featured: false },
+  { id: "dr9", slug: "o-ceo-que-pode-ler-mentes", title: "O CEO que Pode Ler Mentes", category: "Doramas", collection: "Doramas", description: "O CEO pode ler as mentes da garota desprezada! Uma noite encenada o transforma em um amante obcecado.", cover: dorama_oCeoQuePodeLerMentes, coverHd: dorama_oCeoQuePodeLerMentes, youtubeUrl: "https://www.youtube.com/watch?v=es5Jju2DdEQ", featured: false },
+  { id: "dr10", slug: "o-estranho-que-me-salvou", title: "O Estranho que Me Salvou", category: "Doramas", collection: "Doramas", description: "Ela estava em perigo mortal — até que um estranho a salvou e revelou que era um bilionário.", cover: dorama_oEstranhoQueMeSalvou, coverHd: dorama_oEstranhoQueMeSalvou, youtubeUrl: "https://www.youtube.com/watch?v=P5mVURgA0xg", featured: false },
+  { id: "dr11", slug: "renasci-para-amar-outra-vez", title: "Renasci para Amar Outra Vez", category: "Doramas", collection: "Doramas", description: "Meu marido me deu 100 tapas e me expulsou. Renasci, casei com um CEO — agora ele chora pedindo perdão.", cover: dorama_renasciParaAmarOutraVez, coverHd: dorama_renasciParaAmarOutraVez, youtubeUrl: "https://www.youtube.com/watch?v=TZcTR7sNI50", featured: false },
+  { id: "dr12", slug: "sob-a-protecao-do-bilionario", title: "Sob a Proteção do Bilionário", category: "Doramas", collection: "Doramas", description: "Ela o salvou do perigo e agora o bilionário vai protegê-la de todos!", cover: dorama_sobAProtecaoDoBilionario, coverHd: dorama_sobAProtecaoDoBilionario, youtubeUrl: "https://www.youtube.com/watch?v=Tj1FGqI2kFc", featured: false },
+];
+
 export function getDesenhoBySlug(slug: string): Desenho | undefined {
-  return desenhos.find((d) => d.slug === slug);
+  return desenhos.find((d) => d.slug === slug) ?? doramas.find((d) => d.slug === slug);
 }

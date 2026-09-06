@@ -4,7 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
 import { PlayerEmbed } from "@/components/PlayerEmbed";
 import { CardDesenho } from "@/components/CardDesenho";
-import { desenhos, getDesenhoBySlug } from "@/data/desenhos";
+import { desenhos, doramas, getDesenhoBySlug } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
 import { getUltimoEpisodio, setUltimoEpisodio } from "@/lib/progresso";
 import { site } from "@/config/site";
@@ -96,9 +96,11 @@ function DetalheDesenho() {
   };
 
   const status = temPlaylist ? "Episódios disponíveis" : "Filme completo";
-  const itemUnicoLabel = desenho.category === "Filmes" ? "Filme completo" : "Episódio disponível";
+  const ehDorama = desenho.collection === "Doramas";
+  const itemUnicoLabel =
+    desenho.category === "Filmes" || ehDorama ? "Filme completo" : "Episódio disponível";
   const lista = temPlaylist ? episodios : parsed.videoId ? [parsed.videoId] : [];
-  const recomendados = desenhos
+  const recomendados = (ehDorama ? doramas : desenhos)
     .filter((d) => d.slug !== desenho.slug && d.category === desenho.category)
     .slice(0, 6);
 
