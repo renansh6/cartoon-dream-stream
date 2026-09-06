@@ -166,11 +166,11 @@ export const desenhos: Desenho[] = [
   {"id": "66", "slug": "toy-story-um-mundo-de-aventuras", "title": "Toy Story: Um Mundo de Aventuras", "category": "Para as Pequenas e Pequenos", "description": "Assista Toy Story: Um Mundo de Aventuras completo agora.", "cover": "/thumbs/toy-story-um-mundo-de-aventuras.jpg", "coverHd": "/thumbs/toy-story-um-mundo-de-aventuras.jpg", "poster": "/thumbs/toy-story-um-mundo-de-aventuras.jpg", "youtubeUrl": "", "embedUrl": "//%72%65%64%65%63%61%6E%61%69%73%2E%61%66/player3/server.php?server=RCFServer1&subfolder=ondemand&vid=TYSTRY1", "featured": false},
 ];
 
-// Os pôsteres ficam hospedados no CDN do Lovable sob caminhos absolutos `/__l5e/...`,
-// que só resolvem no domínio `*.lovable.app`. Fora dele (vite dev local, deploy na
-// Vercel etc.) esses caminhos dão 404, então prefixamos a origem do app publicado.
-const ASSET_ORIGIN = "https://cartoon-dream-stream.lovable.app";
-const resolveAssetUrl = (u: string) => (u.startsWith("/") ? ASSET_ORIGIN + u : u);
+// Os `.asset.json` guardam caminhos `/__l5e/assets-v1/<uuid>/<nome>.webp` que só
+// resolviam no domínio do Lovable (lento e fora do nosso controle). Agora os
+// arquivos ficam em `public/capas/`, servidos pela própria origem do site.
+const resolveAssetUrl = (u: string) =>
+  u.startsWith("/") ? `/capas/${u.split("/").pop()}` : u;
 
 const posters: Record<string, string> = {
   "sakura-card-captors": sakura.url,
