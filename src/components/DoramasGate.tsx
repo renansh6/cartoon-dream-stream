@@ -107,8 +107,9 @@ export function DoramasGate({
             <Lock className="h-6 w-6" />
           </span>
           <h2 className="mt-4 text-xl font-bold text-white">Conteúdo protegido</h2>
-          <p className="mx-auto mt-1 max-w-[300px] text-sm text-white/70">
-            Digite a senha de acesso enviada em seu e-mail para assistir aos doramas.
+          <p className="mx-auto mt-1 max-w-[320px] text-sm text-white/70">
+            Digite a senha de acesso enviada em seu{" "}
+            <span className="whitespace-nowrap">e-mail</span> para assistir aos doramas.
           </p>
 
           <div className="mt-5 flex gap-2">
