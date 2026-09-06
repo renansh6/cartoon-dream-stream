@@ -217,6 +217,21 @@ function DetalheDesenho() {
                 Carregando a lista de episódios…
               </li>
             )}
+            {usaEmbed && lista.length === 0 && (
+              <li>
+                <div className="flex min-h-11 w-full items-center gap-3 rounded-md bg-primary/20 p-2 text-left ring-1 ring-primary">
+                  <img
+                    src={desenho.cover}
+                    alt=""
+                    aria-hidden
+                    loading="lazy"
+                    onError={(e) => comReserva(e)}
+                    className="h-12 w-20 shrink-0 rounded-lg object-cover"
+                  />
+                  <span className="text-sm text-foreground">{itemUnicoLabel}</span>
+                </div>
+              </li>
+            )}
             {lista.map((videoId, i) => {
               const ativo = i === indexAtual;
               return (
