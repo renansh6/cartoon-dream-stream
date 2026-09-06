@@ -14,7 +14,7 @@ export const Route = createFileRoute("/desenhos")({
       {
         name: "description",
         content:
-          "Explore o catálogo completo de desenhos por categoria: clássicos, magia e fantasia, ação e aventura, para as pequenas e filmes.",
+          "Explore o catálogo completo de desenhos por categoria: clássicos, magia e fantasia, ação e aventura, para as pequenas e pequenos e filmes.",
       },
       { property: "og:title", content: `Todos os desenhos — ${site.name}` },
       {
