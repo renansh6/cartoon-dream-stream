@@ -4,7 +4,16 @@ import { Play } from "lucide-react";
 import type { Desenho } from "@/data/desenhos";
 import capaFallback from "@/assets/capa-fallback.svg";
 
-export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho; prioridade?: boolean }) {
+export function CardDesenho({
+  desenho,
+  prioridade = false,
+  aoInterceptar,
+}: {
+  desenho: Desenho;
+  prioridade?: boolean;
+  /** Quando definido, o card vira um botão que chama isto em vez de navegar (ex.: trava por senha). */
+  aoInterceptar?: ((desenho: Desenho) => void) | undefined;
+}) {
   const [loaded, setLoaded] = useState(false);
   const poster = desenho.poster;
   const [src, setSrc] = useState(poster || desenho.cover);
@@ -60,7 +69,16 @@ export function CardDesenho({ desenho, prioridade = false }: { desenho: Desenho;
     </div>
   );
 
-  const classe = "group relative block focus:outline-none hover:z-10";
+  const classe = "group relative block w-full text-left focus:outline-none hover:z-10";
+
+  // Trava por senha: o card não navega, apenas dispara o callback (abre o modal).
+  if (aoInterceptar) {
+    return (
+      <button type="button" onClick={() => aoInterceptar(desenho)} className={classe}>
+        {conteudo}
+      </button>
+    );
+  }
 
   // Títulos com link externo (ex.: acervo do Barbie Hub) abrem na mesma aba,
   // preservando o botão "voltar" do navegador. Os demais usam a rota interna.

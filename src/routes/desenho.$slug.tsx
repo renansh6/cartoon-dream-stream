@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
-import { createFileRoute, Link, notFound, useLocation } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useLocation, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
 import { PlayerEmbed } from "@/components/PlayerEmbed";
+import { DoramasGate, useDoramasLiberado } from "@/components/DoramasGate";
 import { CardDesenho } from "@/components/CardDesenho";
 import { desenhos, doramas, getDesenhoBySlug } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
@@ -54,6 +55,13 @@ export const Route = createFileRoute("/desenho/$slug")({
 function DetalheDesenho() {
   const { desenho } = Route.useLoaderData();
   const location = useLocation();
+  const navigate = useNavigate();
+  const ehDorama = desenho.collection === "Doramas";
+  const {
+    liberado: doramaLiberado,
+    checado: doramaChecado,
+    liberar: liberarDorama,
+  } = useDoramasLiberado();
   const usaEmbed = Boolean(desenho.embedUrl);
   const parsed = parseYoutubeUrl(desenho.youtubeUrl);
   const temPlaylist = !usaEmbed && Boolean(parsed.playlistId);
@@ -96,13 +104,17 @@ function DetalheDesenho() {
   };
 
   const status = temPlaylist ? "Episódios disponíveis" : "Filme completo";
-  const ehDorama = desenho.collection === "Doramas";
   const itemUnicoLabel =
     desenho.category === "Filmes" || ehDorama ? "Filme completo" : "Episódio disponível";
   const lista = temPlaylist ? episodios : parsed.videoId ? [parsed.videoId] : [];
   const recomendados = (ehDorama ? doramas : desenhos)
     .filter((d) => d.slug !== desenho.slug && d.category === desenho.category)
     .slice(0, 6);
+
+  // Trava por senha: doramas só abrem depois de liberar o acesso.
+  if (ehDorama && doramaChecado && !doramaLiberado) {
+    return <DoramasGate onFechar={() => navigate({ to: "/doramas" })} onLiberado={liberarDorama} />;
+  }
 
   return (
     <div>

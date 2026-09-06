@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ShoppingCart } from "lucide-react";
 import { CardDesenho } from "@/components/CardDesenho";
+import { DoramasGate, useDoramasLiberado } from "@/components/DoramasGate";
 import { doramas } from "@/data/desenhos";
 import { site } from "@/config/site";
 
@@ -31,6 +32,13 @@ export const Route = createFileRoute("/doramas")({
 
 function DoramasFlix() {
   const [semBanner, setSemBanner] = useState(false);
+  const navigate = useNavigate();
+  const { liberado, liberar } = useDoramasLiberado();
+  const [slugPendente, setSlugPendente] = useState<string | null>(null);
+
+  const abrirDorama = (slug: string) => {
+    navigate({ to: "/desenho/$slug", params: { slug } });
+  };
 
   return (
     <div className="py-8 sm:py-12">
@@ -86,10 +94,27 @@ function DoramasFlix() {
         </p>
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {doramas.map((d, i) => (
-            <CardDesenho key={d.id} desenho={d} prioridade={i < 6} />
+            <CardDesenho
+              key={d.id}
+              desenho={d}
+              prioridade={i < 6}
+              aoInterceptar={liberado ? undefined : (dorama) => setSlugPendente(dorama.slug)}
+            />
           ))}
         </div>
       </section>
+
+      {slugPendente && (
+        <DoramasGate
+          onFechar={() => setSlugPendente(null)}
+          onLiberado={() => {
+            liberar();
+            const slug = slugPendente;
+            setSlugPendente(null);
+            if (slug) abrirDorama(slug);
+          }}
+        />
+      )}
     </div>
   );
 }
