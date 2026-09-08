@@ -1,3 +1,5 @@
+import { BotaoTransmitir } from "@/components/BotaoTransmitir";
+
 interface Props {
   /** URL do embed. Aceita "//host/..." (vira https) ou uma URL absoluta. */
   src: string;
@@ -10,6 +12,7 @@ export function PlayerEmbed({ src, title }: Props) {
 
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-lg ring-1 ring-border">
+      <BotaoTransmitir href={url} label="Abrir em tela cheia para transmitir" />
       <iframe
         src={url}
         title={title}

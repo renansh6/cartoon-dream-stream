@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { Play, AlertTriangle, ExternalLink } from "lucide-react";
 import { loadYoutubeApi, parseYoutubeUrl } from "@/lib/youtube";
+import { BotaoTransmitir } from "@/components/BotaoTransmitir";
 
 /** Códigos de erro da IFrame API em que o vídeo existe mas não pode tocar aqui. */
 const EMBED_BLOQUEADO = new Set([101, 150]);
@@ -198,6 +199,8 @@ export function PlayerYoutube({
       <div className="absolute inset-0">
         <div ref={hostRef} className="h-full w-full" />
       </div>
+
+      {!error && <BotaoTransmitir href={watchUrl} />}
 
       {!started && !error && (
         <button
