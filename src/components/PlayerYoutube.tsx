@@ -7,6 +7,11 @@ import { BotaoTransmitir } from "@/components/BotaoTransmitir";
 const EMBED_BLOQUEADO = new Set([101, 150]);
 const VIDEO_INDISPONIVEL = new Set([2, 5, 100]);
 
+type IdleWindow = Window & {
+  requestIdleCallback?: (cb: () => void) => number;
+  cancelIdleCallback?: (id: number) => void;
+};
+
 export interface PlayerHandle {
   playAt: (index: number) => void;
   next: () => void;
@@ -16,6 +21,8 @@ export interface PlayerHandle {
 interface Props {
   url: string;
   title: string;
+  /** Imagem exibida enquanto o player do YouTube ainda não foi carregado. */
+  poster?: string;
   startIndex?: number;
   ref?: React.Ref<PlayerHandle>;
   onEpisodes?: (videoIds: string[]) => void;
@@ -25,14 +32,18 @@ interface Props {
 export function PlayerYoutube({
   url,
   title,
+  poster,
   startIndex = 0,
   ref,
   onEpisodes,
   onIndexChange,
 }: Props) {
+  const boxRef = useRef<HTMLDivElement | null>(null);
   const hostRef = useRef<HTMLDivElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
+  // Só baixa a IFrame API + o iframe quando o player entra em cena ou no clique.
+  const [activated, setActivated] = useState(false);
   const [ready, setReady] = useState(false);
   const [started, setStarted] = useState(false);
   const [blocked, setBlocked] = useState(false);
@@ -55,6 +66,9 @@ export function PlayerYoutube({
   episodesCb.current = onEpisodes;
   indexCb.current = onIndexChange;
   const startIndexRef = useRef(startIndex);
+  startIndexRef.current = startIndex;
+  // Índice a tocar assim que o player ficar pronto; -1 = tocar o item atual.
+  const pendingPlayRef = useRef<number | null>(null);
 
   const publishPlaylist = useCallback(() => {
     const player = playerRef.current;
@@ -71,13 +85,63 @@ export function PlayerYoutube({
     tick();
   }, []);
 
+  const confirmPlaying = useCallback(() => {
+    window.setTimeout(() => {
+      const state = playerRef.current?.getPlayerState?.();
+      const YTState = window.YT?.PlayerState;
+      if (YTState && state !== YTState.PLAYING && state !== YTState.BUFFERING) {
+        setBlocked(true);
+      }
+    }, 1500);
+  }, []);
+
+  // Recomeça do zero ao trocar de desenho: volta a adiar a carga do player.
   useEffect(() => {
-    let cancelled = false;
+    setActivated(false);
     setReady(false);
     setStarted(false);
     setBlocked(false);
     setError(false);
     setErrorCode(null);
+    pendingPlayRef.current = null;
+  }, [url]);
+
+  // Dispara a carga do player quando ele entra na viewport (rolagem até ele) ou
+  // quando o navegador fica ocioso — nunca durante a renderização inicial.
+  useEffect(() => {
+    if (activated) return;
+    const alvo = boxRef.current;
+    const ativar = () => setActivated(true);
+
+    let io: IntersectionObserver | undefined;
+    if (alvo && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            ativar();
+            io?.disconnect();
+          }
+        },
+        { rootMargin: "300px" },
+      );
+      io.observe(alvo);
+    }
+
+    const w = window as IdleWindow;
+    const idleId = w.requestIdleCallback
+      ? w.requestIdleCallback(ativar)
+      : window.setTimeout(ativar, 2500);
+
+    return () => {
+      io?.disconnect();
+      w.cancelIdleCallback?.(idleId);
+      window.clearTimeout(idleId);
+    };
+  }, [activated, url]);
+
+  useEffect(() => {
+    if (!activated) return;
+    let cancelled = false;
 
     loadYoutubeApi()
       .then((YT) => {
@@ -109,6 +173,18 @@ export function PlayerYoutube({
               }
               setReady(true);
               publishPlaylist();
+
+              // O usuário pediu para tocar antes de o player existir: honra agora.
+              const pending = pendingPlayRef.current;
+              if (pending !== null) {
+                pendingPlayRef.current = null;
+                if (parsed.playlistId && player.playVideoAt) {
+                  player.playVideoAt(pending < 0 ? startIndexRef.current : pending);
+                } else {
+                  player.playVideo?.();
+                }
+                confirmPlaying();
+              }
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onStateChange: (event: any) => {
@@ -148,73 +224,95 @@ export function PlayerYoutube({
         /* noop */
       }
       playerRef.current = null;
+      setReady(false);
     };
-    // Recria o player somente quando o desenho muda.
+    // Recria o player somente quando o desenho muda ou quando é ativado.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
-
-  const confirmPlaying = useCallback(() => {
-    window.setTimeout(() => {
-      const state = playerRef.current?.getPlayerState?.();
-      const YTState = window.YT?.PlayerState;
-      if (YTState && state !== YTState.PLAYING && state !== YTState.BUFFERING) {
-        setBlocked(true);
-      }
-    }, 1500);
-  }, []);
+  }, [url, activated]);
 
   useImperativeHandle(
     ref,
     () => ({
       playAt: (index: number) => {
-        const player = playerRef.current;
-        if (!player) return;
         setStarted(true);
+        const player = playerRef.current;
+        if (!activated || !player) {
+          pendingPlayRef.current = index;
+          setActivated(true);
+          return;
+        }
         if (parsed.playlistId && player.playVideoAt) player.playVideoAt(index);
         else player.playVideo?.();
         confirmPlaying();
       },
       next: () => {
-        playerRef.current?.nextVideo?.();
         setStarted(true);
+        const player = playerRef.current;
+        if (!activated || !player) {
+          pendingPlayRef.current = -1;
+          setActivated(true);
+          return;
+        }
+        player.nextVideo?.();
       },
       prev: () => {
-        playerRef.current?.previousVideo?.();
         setStarted(true);
+        const player = playerRef.current;
+        if (!activated || !player) {
+          pendingPlayRef.current = -1;
+          setActivated(true);
+          return;
+        }
+        player.previousVideo?.();
       },
     }),
-    [parsed.playlistId, confirmPlaying],
+    [activated, parsed.playlistId, confirmPlaying],
   );
 
   const start = () => {
     setStarted(true);
     const player = playerRef.current;
-    if (parsed.playlistId && player?.playVideoAt) player.playVideoAt(startIndexRef.current);
-    else player?.playVideo?.();
+    if (!activated || !player) {
+      pendingPlayRef.current = -1;
+      setActivated(true);
+      return;
+    }
+    if (parsed.playlistId && player.playVideoAt) player.playVideoAt(startIndexRef.current);
+    else player.playVideo?.();
     confirmPlaying();
   };
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-lg ring-1 ring-border">
+    <div
+      ref={boxRef}
+      className="relative aspect-video w-full overflow-hidden rounded-lg bg-black shadow-lg ring-1 ring-border"
+    >
       <div className="absolute inset-0">
         <div ref={hostRef} className="h-full w-full" />
       </div>
 
       {!error && <BotaoTransmitir href={watchUrl} />}
 
-      {!started && !error && (
+      {!error && (!started || (activated && !ready)) && (
         <button
           type="button"
           onClick={start}
-          disabled={!ready}
           aria-label={`Reproduzir ${title}`}
           className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-overlay backdrop-blur-[2px] transition-colors hover:bg-black/50"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition hover:bg-red-hover">
+          {poster && (
+            <img
+              src={poster}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover opacity-60"
+            />
+          )}
+          <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl transition hover:bg-red-hover">
             <Play className="h-7 w-7 translate-x-[2px]" fill="currentColor" />
           </span>
-          <span className="text-sm font-medium text-foreground">
-            {ready ? "Toque para assistir" : "Carregando player…"}
+          <span className="relative text-sm font-medium text-foreground">
+            {started && !ready ? "Carregando player…" : "Toque para assistir"}
           </span>
         </button>
       )}

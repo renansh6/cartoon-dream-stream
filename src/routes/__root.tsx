@@ -96,6 +96,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://i.ytimg.com" },
       { rel: "dns-prefetch", href: "https://i.ytimg.com" },
+      // Player do YouTube: adianta DNS/TLS dos domínios usados pela IFrame API.
+      { rel: "preconnect", href: "https://www.youtube-nocookie.com" },
+      { rel: "dns-prefetch", href: "https://www.youtube-nocookie.com" },
+      { rel: "dns-prefetch", href: "https://www.youtube.com" },
+      { rel: "dns-prefetch", href: "https://s.ytimg.com" },
+      { rel: "dns-prefetch", href: "https://googlevideo.com" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap",
