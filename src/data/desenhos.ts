@@ -53,6 +53,7 @@ import belaAdormecida from "@/assets/capas/belaador.webp.asset.json";
 import pequenaSereia from "@/assets/capas/pequenasereia.webp.asset.json";
 import cinderela from "@/assets/capas/cinderela.webp.asset.json";
 import rapunzel from "@/assets/capas/rapunzel.webp.asset.json";
+import { embedEmManutencao } from "@/config/site";
 
 export type Categoria =
   | "Clássicos"
@@ -80,6 +81,8 @@ export interface Desenho {
   /** Quando presente, o player exibe este embed num <iframe> no lugar do player do YouTube. */
   embedUrl?: string;
   featured: boolean;
+  /** Força o aviso de "player em manutenção" neste título (ex.: vídeo removido). */
+  emManutencao?: boolean;
   /** Coleção à qual o título pertence (ex.: "Barbie"), usada por filtros extras. */
   collection?: string;
   /** Quando presente, o card abre este link (mesma aba) em vez da página interna. */
@@ -336,4 +339,13 @@ export const doramas: Desenho[] = [
 
 export function getDesenhoBySlug(slug: string): Desenho | undefined {
   return desenhos.find((d) => d.slug === slug) ?? doramas.find((d) => d.slug === slug);
+}
+
+/**
+ * Título cujo player está fora do ar: mostra aviso de manutenção em vez de tentar
+ * reproduzir. Vale para os embeds do RedeCanais (enquanto `embedEmManutencao`
+ * estiver ligado em `site.ts`) e para qualquer título marcado com `emManutencao`.
+ */
+export function playerEmManutencao(d: Desenho): boolean {
+  return d.emManutencao === true || (Boolean(d.embedUrl) && embedEmManutencao);
 }

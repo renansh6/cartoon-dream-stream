@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { createFileRoute, Link, notFound, useLocation, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Play, Wrench } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
 import { PlayerEmbed } from "@/components/PlayerEmbed";
 import { DoramasGate, useDoramasLiberado } from "@/components/DoramasGate";
 import { CardDesenho } from "@/components/CardDesenho";
-import { desenhos, doramas, getDesenhoBySlug } from "@/data/desenhos";
+import { desenhos, doramas, getDesenhoBySlug, playerEmManutencao } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
 import { getUltimoEpisodio, setUltimoEpisodio } from "@/lib/progresso";
 import { site } from "@/config/site";
@@ -65,6 +65,7 @@ function DetalheDesenho() {
   const usaEmbed = Boolean(desenho.embedUrl);
   const parsed = parseYoutubeUrl(desenho.youtubeUrl);
   const temPlaylist = !usaEmbed && Boolean(parsed.playlistId);
+  const emManutencao = playerEmManutencao(desenho);
 
   const playerRef = useRef<PlayerHandle>(null);
   const playerBoxRef = useRef<HTMLDivElement>(null);
@@ -103,7 +104,11 @@ function DetalheDesenho() {
     if (window.matchMedia("(max-width: 1023px)").matches) rolarAtePlayer();
   };
 
-  const status = temPlaylist ? "Episódios disponíveis" : "Filme completo";
+  const status = emManutencao
+    ? "Player em manutenção"
+    : temPlaylist
+      ? "Episódios disponíveis"
+      : "Filme completo";
   const itemUnicoLabel =
     desenho.category === "Filmes" || ehDorama || usaEmbed ? "Filme completo" : "Episódio disponível";
   const lista = temPlaylist ? episodios : parsed.videoId ? [parsed.videoId] : [];
@@ -153,14 +158,22 @@ function DetalheDesenho() {
               <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{desenho.description}</p>
               <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">{status}</p>
               <div className="mt-4 flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  onClick={() => (usaEmbed ? rolarAtePlayer() : selecionar(retomar ?? indexAtual))}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
-                >
-                  <Play className="h-4 w-4" fill="currentColor" /> Assistir agora
-                </button>
-                {retomar !== null && (
+                {emManutencao ? (
+                  <span className="inline-flex min-h-11 cursor-not-allowed items-center gap-2 rounded-md bg-amber-500/15 px-6 text-sm font-semibold text-amber-400 ring-1 ring-amber-500/40">
+                    <Wrench className="h-4 w-4" /> Player em manutenção
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      usaEmbed ? rolarAtePlayer() : selecionar(retomar ?? indexAtual)
+                    }
+                    className="inline-flex min-h-11 items-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:bg-red-hover"
+                  >
+                    <Play className="h-4 w-4" fill="currentColor" /> Assistir agora
+                  </button>
+                )}
+                {!emManutencao && retomar !== null && (
                   <button
                     type="button"
                     onClick={() => selecionar(retomar)}
@@ -177,7 +190,17 @@ function DetalheDesenho() {
 
       <div className="mx-auto mt-8 grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div id="player" ref={playerBoxRef} className="scroll-mt-20">
-          {usaEmbed ? (
+          {emManutencao ? (
+            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-lg bg-elevated px-6 text-center shadow-lg ring-1 ring-border">
+              <Wrench className="h-9 w-9 text-amber-400" />
+              <p className="text-base font-semibold text-foreground">Player em manutenção</p>
+              <p className="max-w-md text-sm text-muted-foreground">
+                A reprodução de <span className="font-medium text-foreground">{desenho.title}</span>{" "}
+                está temporariamente indisponível. Já estamos trabalhando para reativar — tente
+                novamente mais tarde.
+              </p>
+            </div>
+          ) : usaEmbed ? (
             <PlayerEmbed
               key={desenho.slug}
               src={desenho.embedUrl!}
@@ -227,7 +250,7 @@ function DetalheDesenho() {
           )}
         </div>
 
-        <aside>
+        <aside hidden={emManutencao}>
           <h2 className="text-lg font-semibold text-foreground">
             {temPlaylist ? "Episódios" : itemUnicoLabel}
           </h2>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
-import type { Desenho } from "@/data/desenhos";
+import { playerEmManutencao, type Desenho } from "@/data/desenhos";
 import capaFallback from "@/assets/capa-fallback.svg";
 
 export function CardDesenho({
@@ -15,6 +15,7 @@ export function CardDesenho({
   aoInterceptar?: ((desenho: Desenho) => void) | undefined;
 }) {
   const [loaded, setLoaded] = useState(false);
+  const emManutencao = playerEmManutencao(desenho);
   const poster = desenho.poster;
   const [src, setSrc] = useState(poster || desenho.cover);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -59,12 +60,22 @@ export function CardDesenho({
           {desenho.idioma}
         </span>
       )}
-      <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/90 text-primary-foreground opacity-0 transition group-hover:opacity-100">
-        <Play className="h-4 w-4 translate-x-[1px]" fill="currentColor" />
-      </span>
+      {!emManutencao && (
+        <span className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/90 text-primary-foreground opacity-0 transition group-hover:opacity-100">
+          <Play className="h-4 w-4 translate-x-[1px]" fill="currentColor" />
+        </span>
+      )}
+      {emManutencao && (
+        <span className="absolute right-3 top-3 rounded bg-amber-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-black shadow-sm">
+          Em manutenção
+        </span>
+      )}
       <div className="absolute inset-x-0 bottom-0 p-3">
         <h3 className="line-clamp-2 text-sm font-semibold text-foreground">{desenho.title}</h3>
         <p className="mt-1 text-xs text-muted-foreground">{desenho.category}</p>
+        {emManutencao && (
+          <p className="mt-1 text-xs font-medium text-amber-400">Player em manutenção</p>
+        )}
       </div>
     </div>
   );
