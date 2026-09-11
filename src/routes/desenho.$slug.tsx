@@ -178,13 +178,19 @@ function DetalheDesenho() {
       <div className="mx-auto mt-8 grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div id="player" ref={playerBoxRef} className="scroll-mt-20">
           {usaEmbed ? (
-            <PlayerEmbed key={desenho.slug} src={desenho.embedUrl!} title={desenho.title} />
+            <PlayerEmbed
+              key={desenho.slug}
+              src={desenho.embedUrl!}
+              title={desenho.title}
+              poster={desenho.poster ?? desenho.coverHd ?? desenho.cover}
+            />
           ) : (
             <PlayerYoutube
               key={desenho.slug}
               ref={playerRef}
               url={desenho.youtubeUrl}
               title={desenho.title}
+              poster={desenho.coverHd ?? desenho.cover}
               startIndex={startIndex}
               onEpisodes={setEpisodios}
               onIndexChange={setIndexAtual}
