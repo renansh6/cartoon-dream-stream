@@ -18,11 +18,3 @@ export const site = {
  * (`redecanais.af`, `redecanais.vision`, …) para este valor em tempo de execução.
  */
 export const redecanaisHost = "redecanais.vision";
-
-/**
- * Enquanto `true`, todo título que depende do embed do RedeCanais mostra um
- * aviso de "player em manutenção" (no card e na página do título) em vez de
- * tentar carregar o iframe. Volte para `false` quando `redecanaisHost` estiver
- * apontando para um domínio no ar.
- */
-export const embedEmManutencao = true;
