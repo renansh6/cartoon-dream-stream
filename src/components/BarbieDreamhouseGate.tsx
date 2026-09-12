@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { KeyRound, ShoppingCart, X } from "lucide-react";
+import { X } from "lucide-react";
 
 /**
  * Acesso exclusivo de "Barbie: Life in the Dreamhouse".
@@ -99,19 +99,23 @@ export function BarbieDreamhouseGate({
 
         <div className="px-6 pb-6 pt-2 text-center sm:px-8">
           <h2 className="text-xl font-bold text-white">Barbie: Life in the Dreamhouse</h2>
+          <p className="mt-1 text-sm text-white/70">Acesso ainda não liberado</p>
           <p className="mx-auto mt-2 max-w-[340px] text-sm leading-relaxed text-white/70">
-            Este título tem acesso próprio. Digite sua senha de acesso para assistir aos
-            episódios.
+            Este desenho ainda não faz parte do seu acesso.
+            <br />
+            Libere agora e comece a assistir aos episódios!
           </p>
 
           <div className="mt-5 rounded-2xl border border-[#e6b34d]/60 bg-[#e6b34d]/[0.06] p-4 text-left">
             <label
               htmlFor="barbie-dreamhouse-senha"
-              className="flex items-center gap-2 text-sm font-bold text-[#e6b34d]"
+              className="block text-sm font-bold text-[#e6b34d]"
             >
-              <KeyRound className="h-4 w-4" />
-              Senha de acesso
+              🔑 Já comprou? Digite sua senha
             </label>
+            <p className="mt-1 text-xs leading-relaxed text-white/60">
+              Use a senha recebida após a compra para liberar o desenho.
+            </p>
             <div className="mt-3 flex gap-2">
               <input
                 id="barbie-dreamhouse-senha"
@@ -125,7 +129,7 @@ export function BarbieDreamhouseGate({
                 onKeyDown={(e) => {
                   if (e.key === "Enter") entrar();
                 }}
-                placeholder="Digite a senha"
+                placeholder="Digite sua senha"
                 aria-label="Senha de acesso"
                 aria-invalid={erro}
                 className="h-11 min-w-0 flex-1 rounded-lg border border-white/15 bg-black/30 px-3 text-sm text-white placeholder:text-white/35 focus:border-[#e6b34d] focus:outline-none"
@@ -135,7 +139,7 @@ export function BarbieDreamhouseGate({
                 onClick={entrar}
                 className="h-11 shrink-0 rounded-lg bg-[#e6b34d] px-5 text-sm font-bold text-[#2a0f22] transition hover:bg-[#f0c469]"
               >
-                Entrar
+                Liberar acesso
               </button>
             </div>
             {erro && (
@@ -151,8 +155,7 @@ export function BarbieDreamhouseGate({
             href={CHECKOUT_URL}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-[#f0c469] to-[#e0a838] px-6 py-3.5 text-[15px] font-bold text-[#2a0f22] shadow-[0_8px_24px_rgba(224,168,56,0.35)] transition hover:brightness-105"
           >
-            <ShoppingCart className="h-4 w-4" />
-            Comprar acesso
+            🛒 Comprar e liberar agora
           </a>
         </div>
       </div>
