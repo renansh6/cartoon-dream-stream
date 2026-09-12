@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { PlayerYoutube, type PlayerHandle } from "@/components/PlayerYoutube";
 import { PlayerEmbed } from "@/components/PlayerEmbed";
 import { DoramasGate, useDoramasLiberado } from "@/components/DoramasGate";
+import { BarbieDreamhouseGate, useBarbieDreamhouseLiberado } from "@/components/BarbieDreamhouseGate";
 import { CardDesenho } from "@/components/CardDesenho";
 import { desenhos, doramas, getDesenhoBySlug } from "@/data/desenhos";
 import { parseYoutubeUrl, thumbFor } from "@/lib/youtube";
@@ -57,11 +58,17 @@ function DetalheDesenho() {
   const location = useLocation();
   const navigate = useNavigate();
   const ehDorama = desenho.collection === "Doramas";
+  const ehBarbieDreamhouse = desenho.slug === "barbie-life-in-the-dreamhouse";
   const {
     liberado: doramaLiberado,
     checado: doramaChecado,
     liberar: liberarDorama,
   } = useDoramasLiberado();
+  const {
+    liberado: barbieLiberado,
+    checado: barbieChecado,
+    liberar: liberarBarbie,
+  } = useBarbieDreamhouseLiberado();
   const usaEmbed = Boolean(desenho.embedUrl);
   const parsed = parseYoutubeUrl(desenho.youtubeUrl);
   const temPlaylist = !usaEmbed && Boolean(parsed.playlistId);
@@ -114,6 +121,17 @@ function DetalheDesenho() {
   // Trava por senha: doramas só abrem depois de liberar o acesso.
   if (ehDorama && doramaChecado && !doramaLiberado) {
     return <DoramasGate onFechar={() => navigate({ to: "/doramas" })} onLiberado={liberarDorama} />;
+  }
+
+  // Trava por código: Barbie: Life in the Dreamhouse é vendida à parte.
+  if (ehBarbieDreamhouse && barbieChecado && !barbieLiberado) {
+    return (
+      <BarbieDreamhouseGate
+        bannerUrl={desenho.coverHd}
+        onFechar={() => navigate({ to: "/desenhos" })}
+        onLiberado={liberarBarbie}
+      />
+    );
   }
 
   return (
