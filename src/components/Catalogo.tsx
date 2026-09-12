@@ -1,13 +1,8 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { Search } from "lucide-react";
 import { CardDesenho } from "@/components/CardDesenho";
-import { BarbieDreamhouseGate, useBarbieDreamhouseLiberado } from "@/components/BarbieDreamhouseGate";
 import { categorias, desenhos, type Categoria } from "@/data/desenhos";
 import { normalizar } from "@/lib/texto";
-
-/** Slug do único título com trava individual dentro do catálogo geral. */
-const BARBIE_DREAMHOUSE_SLUG = "barbie-life-in-the-dreamhouse";
 
 /** Filtro selecionável: categorias + "Todos" + a coleção "Barbie". */
 export type Filtro = Categoria | "Todos" | "Barbie";
@@ -30,10 +25,6 @@ export function Catalogo({
   onCategoriaChange,
   titulo = "Todos os desenhos",
 }: Props) {
-  const navigate = useNavigate();
-  const { liberado: barbieLiberado, liberar: liberarBarbie } = useBarbieDreamhouseLiberado();
-  const [slugPendente, setSlugPendente] = useState<string | null>(null);
-
   const filtrados = useMemo(() => {
     const termo = normalizar(query);
     return desenhos.filter((d) => {
@@ -102,31 +93,9 @@ export function Catalogo({
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {filtrados.map((d, i) => (
-            <CardDesenho
-              key={d.id}
-              desenho={d}
-              prioridade={i < 10}
-              aoInterceptar={
-                d.slug === BARBIE_DREAMHOUSE_SLUG && !barbieLiberado
-                  ? (desenho) => setSlugPendente(desenho.slug)
-                  : undefined
-              }
-            />
+            <CardDesenho key={d.id} desenho={d} prioridade={i < 10} />
           ))}
         </div>
-      )}
-
-      {slugPendente && (
-        <BarbieDreamhouseGate
-          bannerUrl={desenhos.find((d) => d.slug === slugPendente)?.coverHd}
-          onFechar={() => setSlugPendente(null)}
-          onLiberado={() => {
-            liberarBarbie();
-            const slug = slugPendente;
-            setSlugPendente(null);
-            if (slug) navigate({ to: "/desenho/$slug", params: { slug } });
-          }}
-        />
       )}
     </section>
   );
