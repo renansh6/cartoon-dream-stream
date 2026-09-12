@@ -39,6 +39,9 @@ export function Header() {
           <NavItem to="/desenhos">Todos os desenhos</NavItem>
           <NavItem to="/colorir">Para colorir</NavItem>
           <NavItem to="/doramas">Doramas Flix</NavItem>
+          <NavItem to="/desenho/$slug" params={{ slug: "barbie-life-in-the-dreamhouse" }}>
+            Barbie: Life in the Dreamhouse
+          </NavItem>
         </nav>
 
         <div className="ml-auto hidden lg:block">
@@ -79,6 +82,15 @@ export function Header() {
           <span aria-hidden>🎬</span>
           DORAMAS FLIX
         </Link>
+        <Link
+          to="/desenho/$slug"
+          params={{ slug: "barbie-life-in-the-dreamhouse" }}
+          onClick={() => setOpen(false)}
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff5fa2] to-[#d6006b] px-4 py-3 text-center text-base font-extrabold leading-snug text-white shadow-lg shadow-black/40 transition hover:brightness-110 active:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        >
+          <span aria-hidden>🎀</span>
+          <span>Barbie: Life in the Dreamhouse</span>
+        </Link>
       </div>
 
       {open && (
@@ -102,11 +114,13 @@ export function Header() {
 
 function NavItem({
   to,
+  params,
   exact,
   onClick,
   children,
 }: {
   to: string;
+  params?: Record<string, string>;
   exact?: boolean;
   onClick?: () => void;
   children: ReactNode;
@@ -116,6 +130,7 @@ function NavItem({
       to={to}
       onClick={onClick}
       {...(exact ? { activeOptions: { exact: true } } : {})}
+      {...(params ? { params } : {})}
       className="rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition hover:text-foreground"
       activeProps={{ className: "bg-field text-foreground" }}
     >

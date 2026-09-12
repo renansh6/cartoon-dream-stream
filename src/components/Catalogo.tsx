@@ -10,6 +10,12 @@ export type Filtro = Categoria | "Todos" | "Barbie";
 /** Filtros exibidos como chips (as categorias visíveis + a coleção Barbie). */
 const filtros: Filtro[] = ["Todos", ...categorias, "Barbie"];
 
+/**
+ * "Barbie: Life in the Dreamhouse" tem acesso próprio e independente
+ * (ver BarbieDreamhouseGate) e por isso não aparece em "Todos os desenhos".
+ */
+const SLUG_FORA_DO_CATALOGO_GERAL = "barbie-life-in-the-dreamhouse";
+
 interface Props {
   query: string;
   onQueryChange: (v: string) => void;
@@ -28,6 +34,7 @@ export function Catalogo({
   const filtrados = useMemo(() => {
     const termo = normalizar(query);
     return desenhos.filter((d) => {
+      if (d.slug === SLUG_FORA_DO_CATALOGO_GERAL) return false;
       const okCategoria =
         categoria === "Todos" ||
         (categoria === "Barbie" ? d.collection === "Barbie" : d.category === categoria);
